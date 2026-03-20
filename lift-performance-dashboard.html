@@ -608,6 +608,102 @@
     </div>
   </div>
 
+  <!-- KPI -->
+  <div class="tab-panel" id="tab-kpi">
+    <div class="pg-title">
+      <div class="pg-title-row">
+        <h2>全体<em>KPI</em></h2>
+        <span class="t-badge">ANALYSIS</span>
+      </div>
+      <p id="kpi-datestr">目標達成状況の詳細分析</p>
+    </div>
+
+    <!-- 日数進捗バナー -->
+    <div id="kpi-day-banner" class="progress-banner">
+      <div class="pb-row">
+        <div><div class="pb-title">月次進捗</div><div class="pb-val" id="kpi-day-pct">---</div></div>
+        <div style="text-align:right"><div class="pb-title">経過日数</div><div class="pb-val" id="kpi-elapsed">--- / --- 日</div></div>
+      </div>
+      <div class="pb-track"><div class="pb-fill" id="kpi-day-fill" style="width:0%"></div></div>
+    </div>
+
+    <!-- サマリーKPIカード -->
+    <div class="sec-label"><span class="dot"></span>主要KPI サマリー</div>
+    <div class="kpi-grid">
+      <div class="kpi-card rose">
+        <div class="kc-label">月次売上</div>
+        <div class="kc-val sm" id="k-sales-a">---</div>
+        <div class="kc-sub">目標 <span id="k-sales-t">---</span></div>
+        <div class="kc-bar-wrap"><div class="kc-bar rose" id="k-sales-bar" style="width:0%"></div></div>
+        <span class="badge" id="k-sales-badge"></span>
+      </div>
+      <div class="kpi-card coral">
+        <div class="kc-label">新規数</div>
+        <div class="kc-val sm" id="k-shinki-a">---</div>
+        <div class="kc-sub">目標 <span id="k-shinki-t">---</span></div>
+        <div class="kc-bar-wrap"><div class="kc-bar coral" id="k-shinki-bar" style="width:0%"></div></div>
+        <span class="badge" id="k-shinki-badge"></span>
+      </div>
+      <div class="kpi-card mint">
+        <div class="kc-label">客単価</div>
+        <div class="kc-val sm" id="k-tanka-a">---</div>
+        <div class="kc-sub">目標 <span id="k-tanka-t">---</span></div>
+        <div class="kc-bar-wrap"><div class="kc-bar mint" id="k-tanka-bar" style="width:0%"></div></div>
+      </div>
+      <div class="kpi-card gold">
+        <div class="kc-label">新規契約数</div>
+        <div class="kc-val sm" id="k-keiyaku-a">---</div>
+        <div class="kc-sub">目標 <span id="k-keiyaku-t">---</span></div>
+        <div class="kc-bar-wrap"><div class="kc-bar gold" id="k-keiyaku-bar" style="width:0%"></div></div>
+      </div>
+      <div class="kpi-card lav">
+        <div class="kc-label">新規契約率</div>
+        <div class="kc-val sm" id="k-kr-a">---</div>
+        <div class="kc-sub">目標 <span id="k-kr-t">---</span></div>
+        <div class="kc-bar-wrap"><div class="kc-bar lav" id="k-kr-bar" style="width:0%"></div></div>
+      </div>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card mint">
+        <div class="kc-label">着地見込み（売上）</div>
+        <div class="kc-val sm" id="k-forecast">---</div>
+        <div class="kc-sub">月次目標比</div>
+      </div>
+      <div class="kpi-card rose">
+        <div class="kc-label">売上達成率</div>
+        <div class="kc-val sm" id="k-sales-prog">---</div>
+        <div class="kc-sub">進捗</div>
+      </div>
+    </div>
+
+    <!-- KPI AI FB -->
+    <div class="ai-fb-card" id="kpi-ai-fb">
+      <div class="ai-fb-hd">
+        <div class="ai-fb-ico">🤖</div>
+        <span class="ai-fb-label">AI KPI診断</span>
+        <span class="ai-fb-chip">KPI AI</span>
+      </div>
+      <div class="ai-fb-text" id="kpi-ai-text">データを読み込み中...</div>
+    </div>
+
+    <!-- 詳細KPIリスト -->
+    <div class="sec-label"><span class="dot"></span>詳細KPI</div>
+    <div id="kpi-detail-list">
+      <!-- JS で生成 -->
+      <div class="card" style="text-align:center;padding:32px;color:var(--text3)">
+        <div style="font-size:28px;margin-bottom:8px">🎯</div>
+        <div style="font-size:12px">スプレッドシート更新後にデータが表示されます</div>
+      </div>
+    </div>
+
+    <!-- 達成率グラフ -->
+    <div class="sec-label"><span class="dot"></span>達成率グラフ</div>
+    <div class="card">
+      <div class="card-hd"><div class="card-hd-l"><span>📊</span>KPI達成率 一覧</div><span class="c-tag lav">BAR</span></div>
+      <canvas id="kpiBarChart" height="260"></canvas>
+    </div>
+  </div>
+
   <!-- スタッフ -->
   <div class="tab-panel" id="tab-staff">
     <div class="pg-title">
@@ -1346,6 +1442,7 @@
   <div class="bnav-inner" style="gap:0">
     <button class="ni active" onclick="go('overview',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">🏠</span><span class="ni-lbl" style="font-size:8px">概要</span><span class="ni-dot"></span></button>
     <button class="ni" onclick="go('store',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">🏪</span><span class="ni-lbl" style="font-size:8px">店舗</span><span class="ni-dot"></span></button>
+    <button class="ni" onclick="go('kpi',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">🎯</span><span class="ni-lbl" style="font-size:8px">KPI</span><span class="ni-dot"></span></button>
     <button class="ni" onclick="go('staff',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">👥</span><span class="ni-lbl" style="font-size:8px">スタッフ</span><span class="ni-dot"></span></button>
     <button class="ni" onclick="go('rank',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">🏆</span><span class="ni-lbl" style="font-size:8px">順位</span><span class="ni-dot"></span></button>
     <button class="ni" onclick="go('knowledge',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">💡</span><span class="ni-lbl" style="font-size:8px">知識</span><span class="ni-dot"></span></button>
@@ -2841,39 +2938,9 @@ function updatePinDots() {
   }
 }
 
-function playUnlockMusic() {
-  try {
-    var ctx = new (window.AudioContext || window.webkitAudioContext)();
-    // ピアノ風のメロディ（Cメジャー: ド→ミ→ソ→ド→ミ→ソ→高ド）
-    var notes = [
-      {freq:523.25, t:0.00, dur:0.18},  // C5
-      {freq:659.25, t:0.18, dur:0.18},  // E5
-      {freq:783.99, t:0.36, dur:0.18},  // G5
-      {freq:523.25, t:0.54, dur:0.14},  // C5
-      {freq:659.25, t:0.68, dur:0.14},  // E5
-      {freq:783.99, t:0.82, dur:0.14},  // G5
-      {freq:1046.5, t:0.96, dur:0.40}   // C6
-    ];
-    notes.forEach(function(n) {
-      var osc = ctx.createOscillator();
-      var gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(n.freq, ctx.currentTime + n.t);
-      gain.gain.setValueAtTime(0, ctx.currentTime + n.t);
-      gain.gain.linearRampToValueAtTime(0.35, ctx.currentTime + n.t + 0.02);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + n.t + n.dur + 0.3);
-      osc.start(ctx.currentTime + n.t);
-      osc.stop(ctx.currentTime + n.t + n.dur + 0.35);
-    });
-  } catch(e) {}
-}
-
 function checkPin() {
   if (_pin === PIN_CODE) {
     sessionStorage.setItem('lift_unlocked', '1');
-    playUnlockMusic();
     fireBurst();
     var lock = document.getElementById('pin-lock');
     setTimeout(function() {
