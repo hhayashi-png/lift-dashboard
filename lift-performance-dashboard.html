@@ -2342,16 +2342,47 @@ function buildOverview(stores, kpi) {
   document.getElementById('hero-date').textContent = dateStr + '  日数進捗 ' + (s.dayProg||'---');
   document.getElementById('ov-datestr').textContent = '集計日: ' + dateStr + '  経過 '+(s.elapsed||'?')+'/'+s.monthDays+' 日';
 
-  // 進捗バナー
+  // 売上サマリーカード + 進捗バナー
   var dayPct = toNum(s.dayProg);
   var salesPct = toNum(s.salesProg);
+  var forecastPct = (s.salesT > 0 && s.salesForecast > 0) ? Math.round(s.salesForecast / s.salesT * 100) : 0;
+  var forecastColor = forecastPct >= 100 ? 'var(--mint)' : forecastPct >= 70 ? 'var(--gold)' : 'var(--rose)';
+  var forecastBg    = forecastPct >= 100 ? 'var(--mint-p)' : forecastPct >= 70 ? 'var(--gold-p)' : 'var(--rose-p)';
+  var progressColor = salesPct >= 100 ? 'var(--mint)' : salesPct >= 70 ? 'var(--gold)' : 'var(--coral)';
+  var summaryHtml = '<div class="card" style="margin-bottom:14px">'
+    + '<div class="card-hd"><div class="card-hd-l"><span>💰</span>売上サマリー</div><span class="c-tag rose">SALES</span></div>'
+    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">'
+    + '<div style="background:var(--bg2);border-radius:var(--rx);padding:12px;text-align:center">'
+    + '<div style="font-size:9px;color:var(--text3);font-weight:700;letter-spacing:.8px;margin-bottom:6px">売上目標</div>'
+    + '<div style="font-size:20px;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums;letter-spacing:0">' + dispYen(s.salesTStr) + '</div>'
+    + '</div>'
+    + '<div style="background:var(--rose-p);border-radius:var(--rx);padding:12px;text-align:center">'
+    + '<div style="font-size:9px;color:var(--rose);font-weight:700;letter-spacing:.8px;margin-bottom:6px">実績</div>'
+    + '<div style="font-size:20px;font-weight:700;color:var(--rose);font-variant-numeric:tabular-nums;letter-spacing:0">' + dispYen(s.salesAStr) + '</div>'
+    + '</div>'
+    + '</div>'
+    + '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">'
+    + '<div style="background:var(--bg2);border-radius:var(--rx);padding:10px;text-align:center">'
+    + '<div style="font-size:9px;color:var(--text3);font-weight:700;letter-spacing:.8px;margin-bottom:4px">進捗</div>'
+    + '<div style="font-size:17px;font-weight:700;color:' + progressColor + ';font-variant-numeric:tabular-nums;letter-spacing:0">' + (s.salesProg || '---') + '</div>'
+    + '</div>'
+    + '<div style="background:var(--mint-p);border-radius:var(--rx);padding:10px;text-align:center">'
+    + '<div style="font-size:9px;color:var(--mint);font-weight:700;letter-spacing:.8px;margin-bottom:4px">着地見込み</div>'
+    + '<div style="font-size:14px;font-weight:700;color:var(--mint);font-variant-numeric:tabular-nums;letter-spacing:0">' + dispYen(s.salesForecastStr || '---') + '</div>'
+    + '</div>'
+    + '<div style="background:' + forecastBg + ';border-radius:var(--rx);padding:10px;text-align:center">'
+    + '<div style="font-size:9px;color:var(--text3);font-weight:700;letter-spacing:.8px;margin-bottom:4px">着地見込み%</div>'
+    + '<div style="font-size:17px;font-weight:700;color:' + forecastColor + ';font-variant-numeric:tabular-nums;letter-spacing:0">' + (forecastPct > 0 ? forecastPct + '%' : '---') + '</div>'
+    + '</div>'
+    + '</div>'
+    + '</div>';
   var pbHtml = '<div class="progress-banner">'
     +'<div class="pb-row"><div><div class="pb-title">売上達成率（月次目標比）</div><div class="pb-val">'+(s.salesProg||fmtP(salesPct))+'</div></div>'
     +'<div style="text-align:right"><div class="pb-title">着地見込み</div><div class="pb-val">'+dispYen(s.salesForecastStr)+'</div></div></div>'
     +'<div class="pb-track"><div class="pb-fill" style="width:'+Math.min(salesPct,100)+'%"></div></div>'
     +'<div class="pb-labels"><span>日数進捗 '+(s.dayProg||'---')+'</span><span>目標 '+dispYen(s.salesTStr)+'</span></div>'
     +'</div>';
-  document.getElementById('prog-banner').innerHTML = pbHtml;
+  document.getElementById('prog-banner').innerHTML = summaryHtml + pbHtml;
 
   // KPIカード
   var achColor = salesPct>=100?'mint':salesPct>=50?'gold':'coral';
@@ -2961,11 +2992,26 @@ var CAT_COLORS = {
   'スタッフ育成':'#8B6BC4', 'リピート率':'#4BAD8C', '物販':'#5B9BD5', 'その他':'#9E8A90'
 };
 
+// ▼▼▼ 全員に見せたい施策はここに追加（全端末で表示されます） ▼▼▼
+// 書き方: {id:'一意なID', title:'タイトル', cat:'集客', status:'active', start:'2026-03-01', end:'', desc:'説明文', before:'施策前KPI', after:'施策後KPI'}
+// status: 'active'=実施中, 'plan'=計画中, 'done'=完了
+var MSRC_SHARED = [
+];
+// ▲▲▲ ここまで ▲▲▲
+
 function msrcLoad() {
-  try { return JSON.parse(localStorage.getItem(MSRC_KEY)) || []; } catch(e) { return []; }
+  var shared = MSRC_SHARED.map(function(x){ return Object.assign({}, x, {isShared:true}); });
+  try {
+    var local = JSON.parse(localStorage.getItem(MSRC_KEY)) || [];
+    var sharedIds = shared.map(function(x){ return x.id; });
+    local.forEach(function(item) {
+      if (sharedIds.indexOf(item.id) < 0) shared.push(item);
+    });
+    return shared;
+  } catch(e) { return shared; }
 }
 function msrcSaveAll(items) {
-  localStorage.setItem(MSRC_KEY, JSON.stringify(items));
+  localStorage.setItem(MSRC_KEY, JSON.stringify(items.filter(function(x){ return !x.isShared; })));
 }
 
 function msrcToggleForm() {
@@ -3110,16 +3156,19 @@ function buildMeasures() {
       + '<div class="msrc-hd">'
       + '<div class="msrc-title">' + _esc(item.title) + '</div>'
       + '<div class="msrc-badges">'
+      + (item.isShared ? '<span style="font-size:9px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--lav-p);color:var(--lav)">共有</span>' : '')
       + '<span class="msrc-status ' + item.status + '">' + (_esc(STATUS_LABELS[item.status]) || item.status) + '</span>'
       + '<span class="msrc-cat" style="background:' + catCol + '22;color:' + catCol + '">' + _esc(item.cat) + '</span>'
       + '</div></div>'
       + '<div class="msrc-date">📅 ' + _esc(dateStr) + '</div>'
       + (item.desc ? '<div class="msrc-desc">' + _esc(item.desc).replace(/\n/g,'<br>') + '</div>' : '')
       + kpiHtml
-      + '<div class="msrc-actions">'
-      + '<button class="msrc-btn edit" onclick="msrcEdit(\'' + item.id + '\')">✏️ 編集</button>'
-      + '<button class="msrc-btn del" onclick="msrcDelete(\'' + item.id + '\')">🗑 削除</button>'
-      + '</div></div>';
+      + (item.isShared ? '' :
+        '<div class="msrc-actions">'
+        + '<button class="msrc-btn edit" onclick="msrcEdit(\'' + item.id + '\')">✏️ 編集</button>'
+        + '<button class="msrc-btn del" onclick="msrcDelete(\'' + item.id + '\')">🗑 削除</button>'
+        + '</div>')
+      + '</div>';
   });
   document.getElementById('msrc-list').innerHTML = cardsHtml;
 }
