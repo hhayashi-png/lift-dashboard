@@ -2345,44 +2345,50 @@ function buildOverview(stores, kpi) {
   // 売上サマリーカード + 進捗バナー
   var dayPct = toNum(s.dayProg);
   var salesPct = toNum(s.salesProg);
+  // 実績: スプレッドシートに値があればそれを使用、なければ目標×進捗率で計算
+  var salesActual = s.salesA > 0 ? s.salesA : (s.salesT > 0 && salesPct > 0 ? Math.round(s.salesT * salesPct / 100) : 0);
+  var salesActualStr = (s.salesAStr && s.salesAStr !== '---' && s.salesAStr !== '') ? s.salesAStr : (salesActual > 0 ? salesActual.toLocaleString() : '---');
   var forecastPct = (s.salesT > 0 && s.salesForecast > 0) ? Math.round(s.salesForecast / s.salesT * 100) : 0;
-  var forecastColor = forecastPct >= 100 ? 'var(--mint)' : forecastPct >= 70 ? 'var(--gold)' : 'var(--rose)';
-  var forecastBg    = forecastPct >= 100 ? 'var(--mint-p)' : forecastPct >= 70 ? 'var(--gold-p)' : 'var(--rose-p)';
-  var progressColor = salesPct >= 100 ? 'var(--mint)' : salesPct >= 70 ? 'var(--gold)' : 'var(--coral)';
-  var summaryHtml = '<div class="card" style="margin-bottom:14px">'
-    + '<div class="card-hd"><div class="card-hd-l"><span>💰</span>売上サマリー</div><span class="c-tag rose">SALES</span></div>'
-    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">'
-    + '<div style="background:var(--bg2);border-radius:var(--rx);padding:12px;text-align:center">'
-    + '<div style="font-size:9px;color:var(--text3);font-weight:700;letter-spacing:.8px;margin-bottom:6px">売上目標</div>'
-    + '<div style="font-size:20px;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums;letter-spacing:0">' + dispYen(s.salesTStr) + '</div>'
+  // 色分け
+  var _pColor = salesPct >= 100 ? 'var(--mint)' : salesPct >= 70 ? 'var(--gold)' : 'var(--rose)';
+  var _fColor = forecastPct >= 100 ? 'var(--mint)' : forecastPct >= 70 ? 'var(--gold)' : 'var(--rose)';
+  var _fBg    = forecastPct >= 100 ? 'rgba(75,173,140,.12)' : forecastPct >= 70 ? 'rgba(200,146,58,.12)' : 'rgba(212,96,122,.10)';
+
+  function _row(label, value, valColor, isBig) {
+    var fs = isBig ? '18px' : '15px';
+    return '<div style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--border2)">'
+      + '<div style="font-size:12px;font-weight:600;color:var(--text2)">' + label + '</div>'
+      + '<div style="font-size:'+fs+';font-weight:700;color:'+(valColor||'var(--text)')+';font-variant-numeric:tabular-nums;letter-spacing:0">' + value + '</div>'
+      + '</div>';
+  }
+
+  var summaryHtml = '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:14px;box-shadow:var(--sh);overflow:hidden">'
+    + '<div style="background:var(--g-rose);padding:10px 14px;display:flex;align-items:center;justify-content:space-between">'
+    + '<div style="font-size:12px;font-weight:700;color:#fff;letter-spacing:.5px">💰 売上サマリー</div>'
+    + '<div style="font-size:10px;color:rgba(255,255,255,.8);letter-spacing:1px">SALES OVERVIEW</div>'
     + '</div>'
-    + '<div style="background:var(--rose-p);border-radius:var(--rx);padding:12px;text-align:center">'
-    + '<div style="font-size:9px;color:var(--rose);font-weight:700;letter-spacing:.8px;margin-bottom:6px">実績</div>'
-    + '<div style="font-size:20px;font-weight:700;color:var(--rose);font-variant-numeric:tabular-nums;letter-spacing:0">' + dispYen(s.salesAStr) + '</div>'
+    + _row('売上目標', dispYen(s.salesTStr), 'var(--text)', true)
+    + _row('実績', dispYen(salesActualStr), 'var(--rose)', true)
+    + _row('進捗', s.salesProg || '---', _pColor, true)
+    + _row('着地見込み', dispYen(s.salesForecastStr || '---'), 'var(--mint)', false)
+    + '<div style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:'+_fBg+'">'
+    + '<div style="font-size:12px;font-weight:600;color:var(--text2)">着地見込み%</div>'
+    + '<div style="font-size:18px;font-weight:700;color:'+_fColor+';font-variant-numeric:tabular-nums">' + (forecastPct > 0 ? forecastPct + '%' : '---') + '</div>'
     + '</div>'
+    + '<div style="padding:10px 14px 12px">'
+    + '<div style="display:flex;justify-content:space-between;font-size:10px;color:rgba(255,255,255,.85);margin-bottom:5px">'
+    + '<span style="color:var(--text3)">進捗 ' + (s.salesProg || '---') + '</span>'
+    + '<span style="color:var(--text3)">日数進捗 ' + (s.dayProg || '---') + '</span>'
     + '</div>'
-    + '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">'
-    + '<div style="background:var(--bg2);border-radius:var(--rx);padding:10px;text-align:center">'
-    + '<div style="font-size:9px;color:var(--text3);font-weight:700;letter-spacing:.8px;margin-bottom:4px">進捗</div>'
-    + '<div style="font-size:17px;font-weight:700;color:' + progressColor + ';font-variant-numeric:tabular-nums;letter-spacing:0">' + (s.salesProg || '---') + '</div>'
+    + '<div style="height:6px;background:var(--border2);border-radius:6px;overflow:hidden">'
+    + '<div style="height:100%;background:var(--g-rose);border-radius:6px;width:' + Math.min(salesPct, 100) + '%;transition:width 1s ease;position:relative;overflow:hidden">'
+    + '<div style="position:absolute;top:0;left:0;width:35%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);animation:barSweep 2.2s ease-in-out infinite .6s"></div>'
     + '</div>'
-    + '<div style="background:var(--mint-p);border-radius:var(--rx);padding:10px;text-align:center">'
-    + '<div style="font-size:9px;color:var(--mint);font-weight:700;letter-spacing:.8px;margin-bottom:4px">着地見込み</div>'
-    + '<div style="font-size:14px;font-weight:700;color:var(--mint);font-variant-numeric:tabular-nums;letter-spacing:0">' + dispYen(s.salesForecastStr || '---') + '</div>'
-    + '</div>'
-    + '<div style="background:' + forecastBg + ';border-radius:var(--rx);padding:10px;text-align:center">'
-    + '<div style="font-size:9px;color:var(--text3);font-weight:700;letter-spacing:.8px;margin-bottom:4px">着地見込み%</div>'
-    + '<div style="font-size:17px;font-weight:700;color:' + forecastColor + ';font-variant-numeric:tabular-nums;letter-spacing:0">' + (forecastPct > 0 ? forecastPct + '%' : '---') + '</div>'
     + '</div>'
     + '</div>'
     + '</div>';
-  var pbHtml = '<div class="progress-banner">'
-    +'<div class="pb-row"><div><div class="pb-title">売上達成率（月次目標比）</div><div class="pb-val">'+(s.salesProg||fmtP(salesPct))+'</div></div>'
-    +'<div style="text-align:right"><div class="pb-title">着地見込み</div><div class="pb-val">'+dispYen(s.salesForecastStr)+'</div></div></div>'
-    +'<div class="pb-track"><div class="pb-fill" style="width:'+Math.min(salesPct,100)+'%"></div></div>'
-    +'<div class="pb-labels"><span>日数進捗 '+(s.dayProg||'---')+'</span><span>目標 '+dispYen(s.salesTStr)+'</span></div>'
-    +'</div>';
-  document.getElementById('prog-banner').innerHTML = summaryHtml + pbHtml;
+
+  document.getElementById('prog-banner').innerHTML = summaryHtml;
 
   // KPIカード
   var achColor = salesPct>=100?'mint':salesPct>=50?'gold':'coral';
