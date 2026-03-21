@@ -545,11 +545,25 @@
       </div>
       <p>各店舗の詳細パフォーマンス</p>
     </div>
-    <div id="store-accs"></div>
-    <div class="sec-label"><span class="dot"></span>売上比較グラフ</div>
+
+    <!-- 店舗フィルター -->
+    <div class="sec-label"><span class="dot"></span>店舗を選択</div>
+    <div class="sa-filter" id="st-filter"></div>
+
+    <!-- 店舗サマリー -->
+    <div id="st-summary"></div>
+
+    <!-- 異常検知 -->
+    <div id="st-alert"></div>
+
+    <!-- スタッフランキング -->
+    <div class="sec-label"><span class="dot"></span>スタッフ別パフォーマンス</div>
+    <div id="st-staff-list"></div>
+
+    <!-- 全店比較グラフ -->
+    <div class="sec-label"><span class="dot"></span>全店売上比較</div>
     <div class="card">
       <div class="card-hd"><div class="card-hd-l"><span>📊</span>店舗別売上</div><span class="c-tag rose">BAR CHART</span></div>
-      <!-- 店舗 AI FB -->
       <div class="ai-fb-card" id="store-ai-fb">
         <div class="ai-fb-hd">
           <div class="ai-fb-ico">🤖</div>
@@ -558,106 +572,10 @@
         </div>
         <div class="ai-fb-text" id="store-ai-text">データを読み込み中...</div>
       </div>
-
       <canvas id="storeChart" height="220"></canvas>
     </div>
   </div>
 
-  <!-- KPI -->
-  <div class="tab-panel" id="tab-kpi">
-    <div class="pg-title">
-      <div class="pg-title-row">
-        <h2>全体<em>KPI</em></h2>
-        <span class="t-badge">ANALYSIS</span>
-      </div>
-      <p id="kpi-datestr">目標達成状況の詳細分析</p>
-    </div>
-
-    <!-- 日数進捗バナー -->
-    <div id="kpi-day-banner" class="progress-banner">
-      <div class="pb-row">
-        <div><div class="pb-title">月次進捗</div><div class="pb-val" id="kpi-day-pct">---</div></div>
-        <div style="text-align:right"><div class="pb-title">経過日数</div><div class="pb-val" id="kpi-elapsed">--- / --- 日</div></div>
-      </div>
-      <div class="pb-track"><div class="pb-fill" id="kpi-day-fill" style="width:0%"></div></div>
-    </div>
-
-    <!-- サマリーKPIカード -->
-    <div class="sec-label"><span class="dot"></span>主要KPI サマリー</div>
-    <div class="kpi-grid">
-      <div class="kpi-card rose">
-        <div class="kc-label">月次売上</div>
-        <div class="kc-val sm" id="k-sales-a">---</div>
-        <div class="kc-sub">目標 <span id="k-sales-t">---</span></div>
-        <div class="kc-bar-wrap"><div class="kc-bar rose" id="k-sales-bar" style="width:0%"></div></div>
-        <span class="badge" id="k-sales-badge"></span>
-      </div>
-      <div class="kpi-card coral">
-        <div class="kc-label">新規数</div>
-        <div class="kc-val sm" id="k-shinki-a">---</div>
-        <div class="kc-sub">目標 <span id="k-shinki-t">---</span></div>
-        <div class="kc-bar-wrap"><div class="kc-bar coral" id="k-shinki-bar" style="width:0%"></div></div>
-        <span class="badge" id="k-shinki-badge"></span>
-      </div>
-      <div class="kpi-card mint">
-        <div class="kc-label">客単価</div>
-        <div class="kc-val sm" id="k-tanka-a">---</div>
-        <div class="kc-sub">目標 <span id="k-tanka-t">---</span></div>
-        <div class="kc-bar-wrap"><div class="kc-bar mint" id="k-tanka-bar" style="width:0%"></div></div>
-      </div>
-      <div class="kpi-card gold">
-        <div class="kc-label">新規契約数</div>
-        <div class="kc-val sm" id="k-keiyaku-a">---</div>
-        <div class="kc-sub">目標 <span id="k-keiyaku-t">---</span></div>
-        <div class="kc-bar-wrap"><div class="kc-bar gold" id="k-keiyaku-bar" style="width:0%"></div></div>
-      </div>
-      <div class="kpi-card lav">
-        <div class="kc-label">新規契約率</div>
-        <div class="kc-val sm" id="k-kr-a">---</div>
-        <div class="kc-sub">目標 <span id="k-kr-t">---</span></div>
-        <div class="kc-bar-wrap"><div class="kc-bar lav" id="k-kr-bar" style="width:0%"></div></div>
-      </div>
-    </div>
-    <div class="kpi-grid">
-      <div class="kpi-card mint">
-        <div class="kc-label">着地見込み（売上）</div>
-        <div class="kc-val sm" id="k-forecast">---</div>
-        <div class="kc-sub">月次目標比</div>
-      </div>
-      <div class="kpi-card rose">
-        <div class="kc-label">売上達成率</div>
-        <div class="kc-val sm" id="k-sales-prog">---</div>
-        <div class="kc-sub">進捗</div>
-      </div>
-    </div>
-
-    <!-- KPI AI FB -->
-    <div class="ai-fb-card" id="kpi-ai-fb">
-      <div class="ai-fb-hd">
-        <div class="ai-fb-ico">🤖</div>
-        <span class="ai-fb-label">AI KPI診断</span>
-        <span class="ai-fb-chip">KPI AI</span>
-      </div>
-      <div class="ai-fb-text" id="kpi-ai-text">データを読み込み中...</div>
-    </div>
-
-    <!-- 詳細KPIリスト -->
-    <div class="sec-label"><span class="dot"></span>詳細KPI</div>
-    <div id="kpi-detail-list">
-      <!-- JS で生成 -->
-      <div class="card" style="text-align:center;padding:32px;color:var(--text3)">
-        <div style="font-size:28px;margin-bottom:8px">🎯</div>
-        <div style="font-size:12px">スプレッドシート更新後にデータが表示されます</div>
-      </div>
-    </div>
-
-    <!-- 達成率グラフ -->
-    <div class="sec-label"><span class="dot"></span>達成率グラフ</div>
-    <div class="card">
-      <div class="card-hd"><div class="card-hd-l"><span>📊</span>KPI達成率 一覧</div><span class="c-tag lav">BAR</span></div>
-      <canvas id="kpiBarChart" height="260"></canvas>
-    </div>
-  </div>
 
   <!-- スタッフ -->
   <div class="tab-panel" id="tab-staff">
@@ -981,35 +899,97 @@
   </div>
 
 
-  <!-- 店舗分析 -->
-  <div class="tab-panel" id="tab-storeanal">
+  <!-- 顧客分析 -->
+  <div class="tab-panel" id="tab-customer">
     <div class="pg-title">
       <div class="pg-title-row">
-        <h2>店舗<em>分析</em></h2>
-        <span class="t-badge">ANALYTICS</span>
+        <h2>顧客<em>分析</em></h2>
+        <span class="t-badge">CUSTOMER</span>
       </div>
-      <p>店舗別スタッフパフォーマンス・比較分析</p>
+      <p>顧客属性・行動・傾向の可視化</p>
     </div>
 
-    <!-- 店舗フィルター -->
-    <div class="sec-label"><span class="dot"></span>店舗を選択</div>
-    <div class="sa-filter" id="sa-filter"></div>
-
-    <!-- サマリーカード -->
-    <div id="sa-summary"></div>
-
-    <!-- 異常検知アラート -->
-    <div id="sa-alert"></div>
-
-    <!-- スタッフランキング -->
-    <div class="sec-label"><span class="dot"></span>スタッフ別パフォーマンス</div>
-    <div id="sa-staff-list"></div>
-
-    <!-- 棒グラフ -->
-    <div class="sec-label"><span class="dot"></span>売上グラフ</div>
-    <div class="sa-chart-wrap">
-      <canvas id="saChart" height="240"></canvas>
+    <!-- データ準備中バナー -->
+    <div style="background:linear-gradient(135deg,#F3EFFE,#EDF5FF);border:1.5px dashed var(--lav);border-radius:var(--r);padding:20px 18px;margin-bottom:16px;text-align:center">
+      <div style="font-size:28px;margin-bottom:8px">📋</div>
+      <div style="font-size:13px;font-weight:700;color:var(--lav);margin-bottom:6px">顧客データ投入待ち</div>
+      <div style="font-size:11px;color:var(--text2);line-height:1.7">同意書データが揃い次第、以下の分析が自動表示されます</div>
     </div>
+
+    <!-- 分析項目プレビュー -->
+    <div class="sec-label"><span class="dot"></span>分析予定項目</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+      <div class="sa-summary" style="margin-bottom:0">
+        <div style="font-size:20px;margin-bottom:6px">👤</div>
+        <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">年齢・性別</div>
+        <div style="font-size:10px;color:var(--text3)">属性分布・円グラフ</div>
+      </div>
+      <div class="sa-summary" style="margin-bottom:0">
+        <div style="font-size:20px;margin-bottom:6px">🎯</div>
+        <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">来店目的・悩み</div>
+        <div style="font-size:10px;color:var(--text3)">棒グラフ・TOP5</div>
+      </div>
+      <div class="sa-summary" style="margin-bottom:0">
+        <div style="font-size:20px;margin-bottom:6px">📍</div>
+        <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">流入経路</div>
+        <div style="font-size:10px;color:var(--text3)">SNS・紹介・HPB等</div>
+      </div>
+      <div class="sa-summary" style="margin-bottom:0">
+        <div style="font-size:20px;margin-bottom:6px">🔄</div>
+        <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">継続・契約状況</div>
+        <div style="font-size:10px;color:var(--text3)">継続率・離脱タイミング</div>
+      </div>
+      <div class="sa-summary" style="margin-bottom:0">
+        <div style="font-size:20px;margin-bottom:6px">💆</div>
+        <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">メニュー別傾向</div>
+        <div style="font-size:10px;color:var(--text3)">施術選択・リピート率</div>
+      </div>
+      <div class="sa-summary" style="margin-bottom:0">
+        <div style="font-size:20px;margin-bottom:6px">🏪</div>
+        <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">エリア別</div>
+        <div style="font-size:10px;color:var(--text3)">店舗×属性クロス分析</div>
+      </div>
+    </div>
+
+    <!-- セグメント分解 -->
+    <div class="sec-label"><span class="dot"></span>セグメント分解（準備中）</div>
+    <div class="sa-summary">
+      <div style="font-size:11px;color:var(--text2);line-height:1.8">
+        📌 <b>予定セグメント例</b><br>
+        ・20代 × 小顔希望 × SNS流入<br>
+        ・30代 × アンチエイジング × 紹介<br>
+        ・40代 × リフトアップ × リピーター<br>
+        <br>
+        データ投入後にドリルダウン分析が可能になります
+      </div>
+    </div>
+
+    <!-- グラフエリア（準備中） -->
+    <div class="sec-label"><span class="dot"></span>グラフ（データ投入後に表示）</div>
+    <div class="sa-chart-wrap" style="display:flex;align-items:center;justify-content:center;min-height:140px">
+      <div style="text-align:center;color:var(--text3)">
+        <div style="font-size:32px;margin-bottom:8px">📊</div>
+        <div style="font-size:11px">同意書データ投入後に<br>円グラフ・棒グラフが表示されます</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- アクション提案 -->
+  <div class="tab-panel" id="tab-action">
+    <div class="pg-title">
+      <div class="pg-title-row">
+        <h2>アクション<em>提案</em></h2>
+        <span class="t-badge">ACTION</span>
+      </div>
+      <p>データから導く「次の一手」</p>
+    </div>
+
+    <!-- 現状サマリー -->
+    <div id="action-summary"></div>
+
+    <!-- アクション提案カード群 -->
+    <div class="sec-label"><span class="dot"></span>優先アクション</div>
+    <div id="action-cards"></div>
   </div>
 
 </div>
@@ -1019,11 +999,11 @@
   <div class="bnav-inner" style="gap:0">
     <button class="ni active" onclick="go('overview',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">🏠</span><span class="ni-lbl" style="font-size:8px">概要</span><span class="ni-dot"></span></button>
     <button class="ni" onclick="go('store',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">🏪</span><span class="ni-lbl" style="font-size:8px">店舗</span><span class="ni-dot"></span></button>
-    <button class="ni" onclick="go('kpi',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">🎯</span><span class="ni-lbl" style="font-size:8px">KPI</span><span class="ni-dot"></span></button>
-    <button class="ni" onclick="go('staff',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">👥</span><span class="ni-lbl" style="font-size:8px">スタッフ</span><span class="ni-dot"></span></button>
+<button class="ni" onclick="go('staff',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">👥</span><span class="ni-lbl" style="font-size:8px">スタッフ</span><span class="ni-dot"></span></button>
     <button class="ni" onclick="go('rank',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">🏆</span><span class="ni-lbl" style="font-size:8px">順位</span><span class="ni-dot"></span></button>
     <button class="ni" onclick="go('knowledge',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">💡</span><span class="ni-lbl" style="font-size:8px">知識</span><span class="ni-dot"></span></button>
-    <button class="ni" onclick="go('storeanal',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">📊</span><span class="ni-lbl" style="font-size:8px">分析</span><span class="ni-dot"></span></button>
+    <button class="ni" onclick="go('customer',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">👤</span><span class="ni-lbl" style="font-size:8px">顧客</span><span class="ni-dot"></span></button>
+    <button class="ni" onclick="go('action',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">⚡</span><span class="ni-lbl" style="font-size:8px">提案</span><span class="ni-dot"></span></button>
   </div>
 </nav>
 
@@ -2030,32 +2010,28 @@ function buildOverview(stores, kpi) {
 }
 
 // ===== 店舗タブ =====
-function buildStore(stores) {
-  var container = document.getElementById('store-accs');
-  var sorted = stores.slice().sort(function(a,b){return b.sales-a.sales;});
-  var html='';
-  for(var i=0;i<sorted.length;i++){
-    var s=sorted[i];
-    html+='<div class="acc"><div class="acc-hd" onclick="togAcc(this)">'
-      +'<div class="acc-hd-l">'+rkHtml(i)
-      +'<div><div class="acc-name">'+s.name+'</div>'
-      +'<div class="acc-meta">'+dispYen(s.salesStr)+(s.ach>0?' · 達成率'+fmtP(s.ach):'')+'</div></div>'
-      +'</div><span class="acc-arr">▼</span></div>'
-      +'<div class="acc-body"><div class="acc-row">'
-      +'<div class="acc-item"><div class="acc-item-l">売上</div><div class="acc-item-v rose">'+dispYen(s.salesStr)+'</div></div>'
-      +(s.salesTStr?'<div class="acc-item"><div class="acc-item-l">売上目標</div><div class="acc-item-v">'+dispYen(s.salesTStr)+'</div></div>':'')
-      +(s.ach>0?'<div class="acc-item"><div class="acc-item-l">達成率</div><div class="acc-item-v">'+fmtP(s.ach)+'</div></div>':'')
-      +(s.shinki>0?'<div class="acc-item"><div class="acc-item-l">新規数</div><div class="acc-item-v">'+s.shinki+'人</div></div>':'')
-      +(s.shinkiT>0?'<div class="acc-item"><div class="acc-item-l">新規目標</div><div class="acc-item-v">'+s.shinkiT+'人</div></div>':'')
-      +(s.tankaStr?'<div class="acc-item"><div class="acc-item-l">客単価</div><div class="acc-item-v">'+dispYen(s.tankaStr)+'</div></div>':'')
-      +(s.keiyakuR?'<div class="acc-item"><div class="acc-item-l">新規契約率</div><div class="acc-item-v">'+s.keiyakuR+'</div></div>':'')
-      +(s.keizoku?'<div class="acc-item"><div class="acc-item-l">継続契約率</div><div class="acc-item-v">'+s.keizoku+'</div></div>':'')
-      +'</div>'
-      +(s.ach>0?'<div style="margin-top:8px"><div style="font-size:10px;color:var(--text3);margin-bottom:4px">達成率 '+fmtP(s.ach)+'</div>'
-        +'<div class="kc-bar-wrap"><div class="kc-bar '+(s.ach>=100?'mint':s.ach>=80?'gold':'rose')+'" style="width:'+Math.min(s.ach,100)+'%"></div></div></div>':'')
-      +'</div></div>';
-  }
-  container.innerHTML = html || '<div class="empty"><div class="ico">🏪</div><p>店舗データが見つかりません</p></div>';
+var _stStores = [];
+var _stStaff = [];
+var _stCurrent = 'ALL';
+
+function buildStore(stores, staffList) {
+  _stStores = stores || [];
+  _stStaff = (staffList || []).filter(function(s){ return s.store && s.store !== ''; });
+
+  // 店舗フィルターボタン（ALL + 各店舗）
+  var storeNames = [];
+  var seen = {};
+  _stStaff.forEach(function(s){ if(!seen[s.store]){seen[s.store]=true;storeNames.push(s.store);} });
+
+  var filterEl = document.getElementById('st-filter');
+  var btns = '<button class="sa-filter-btn active" onclick="stFilter('ALL',this)">ALL</button>';
+  storeNames.forEach(function(st){
+    btns += '<button class="sa-filter-btn" onclick="stFilter(''+st+'',this)">'+st+'</button>';
+  });
+  filterEl.innerHTML = btns;
+
+  stRender('ALL');
+
   // AI FB for store tab
   var saiEl = document.getElementById('store-ai-text');
   if(saiEl && stores && stores.length>0) {
@@ -2066,163 +2042,109 @@ function buildStore(stores) {
     var smsg = '<b>AI 店舗パフォーマンス分析：</b>';
     smsg += '<span class="ai-point">🥇 トップ：<b>'+top.name+'</b>（'+dispYen(top.salesStr)+'）。この店舗の成功要因を全店に横展開しましょう</span>';
     if(bot && bot.name!==top.name) smsg += '<span class="ai-point">📊 要注目：<b>'+bot.name+'</b>（'+dispYen(bot.salesStr)+'）。マネージャーと個別面談でボトルネックを特定してください</span>';
-    smsg += '<span class="ai-point">全店平均売上：'+dispYen(Math.round(avg).toLocaleString())+'。客単価・新規契約率の底上げで平均を引き上げることが経営の最優先課題です</span>';
+    smsg += '<span class="ai-point">全店平均売上：'+dispYen(Math.round(avg).toLocaleString())+'。客単価・新規契約率の底上げが最優先課題です</span>';
     saiEl.innerHTML = smsg;
   }
 
-  // グラフ
+  // 全店比較グラフ
+  var sorted = stores.slice().sort(function(a,b){return b.sales-a.sales;});
   var ctx = document.getElementById('storeChart').getContext('2d');
   if(charts.store) charts.store.destroy();
   var avColors=['rgba(212,96,122,.80)','rgba(232,130,92,.80)','rgba(200,146,58,.80)','rgba(139,107,196,.80)','rgba(75,173,140,.80)','rgba(91,155,213,.80)','rgba(212,96,122,.60)','rgba(232,130,92,.60)'];
   charts.store = new Chart(ctx,{type:'bar',data:{labels:sorted.map(function(s){return s.name;}),datasets:[{label:'売上',data:sorted.map(function(s){return s.sales;}),backgroundColor:sorted.map(function(_,i){return avColors[i%avColors.length];}),borderRadius:8,borderSkipped:false}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:function(v){return fmtY(v);},color:'#9E8A90',font:{size:10}},grid:{color:'rgba(0,0,0,0.05)'}},x:{ticks:{color:'#9E8A90',font:{size:10}},grid:{display:false}}}}});
 }
 
-// ===== KPIタブ =====
-function buildKPI(kpi) {
-  try {
-    var s = kpi.summary || {};
-    var details = kpi.details || [];
+function stFilter(store, btn) {
+  _stCurrent = store;
+  document.querySelectorAll('#st-filter .sa-filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  stRender(store);
+}
 
-    // 日付・日数進捗
-    var dateStr = s.date || '';
-    if (dateStr) document.getElementById('kpi-datestr').textContent = '集計日: ' + dateStr;
-    var dayPct = toNum(s.dayProg);
-    document.getElementById('kpi-day-pct').textContent = s.dayProg || '---';
-    document.getElementById('kpi-elapsed').textContent = (s.elapsed||'?') + ' / ' + (s.monthDays||'?') + ' 日';
-    document.getElementById('kpi-day-fill').style.width = Math.min(dayPct, 100) + '%';
+function stRender(store) {
+  var list = store === 'ALL' ? _stStaff : _stStaff.filter(function(s){ return s.store === store; });
+  list = list.slice().sort(function(a,b){ return b.sales - a.sales; });
 
-    // サマリーカード
-    var salesPct = toNum(s.salesProg);
-    document.getElementById('k-sales-a').textContent   = dispYen(s.salesAStr) || '---';
-    document.getElementById('k-sales-t').textContent   = dispYen(s.salesTStr) || '---';
-    document.getElementById('k-sales-bar').style.width = Math.min(salesPct, 100) + '%';
-    if (s.salesProg) {
-      var b = document.getElementById('k-sales-badge');
-      b.textContent  = s.salesProg;
-      b.className    = 'badge ' + (salesPct >= 100 ? 'up' : salesPct >= 50 ? 'neutral' : 'down');
+  // --- サマリー ---
+  var totalSales = 0, keiyakuSum = 0, validN = 0, totalAch = 0;
+  list.forEach(function(s){
+    totalSales += s.sales;
+    totalAch += s.ach;
+    var kr = parseFloat(String(s.keiyakuR).replace('%',''));
+    if(!isNaN(kr) && kr > 0){ keiyakuSum += kr; validN++; }
+  });
+  var avgAch = list.length > 0 ? Math.round(totalAch / list.length) : 0;
+  var avgKeiyaku = validN > 0 ? (Math.round(keiyakuSum / validN * 10) / 10) : 0;
+  var fillClass = avgAch >= 100 ? 'good' : '';
+  var storeName = store === 'ALL' ? '全店舗' : store;
+
+  var summaryHtml = '<div class="sa-summary">'
+    + '<div class="sa-summary-name">🏪 ' + storeName + '</div>'
+    + '<div class="sa-stats">'
+    + '<div class="sa-stat"><div class="sa-stat-val">' + (totalSales >= 1000000 ? Math.round(totalSales/10000) + '万' : totalSales >= 10000 ? Math.round(totalSales/10000*10)/10 + '万' : totalSales.toLocaleString()) + '円</div><div class="sa-stat-lbl">合計売上</div></div>'
+    + '<div class="sa-stat"><div class="sa-stat-val">' + avgKeiyaku + '%</div><div class="sa-stat-lbl">平均契約率</div></div>'
+    + '<div class="sa-stat"><div class="sa-stat-val">' + list.length + '名</div><div class="sa-stat-lbl">スタッフ数</div></div>'
+    + '</div>'
+    + '<div class="sa-prog-wrap">'
+    + '<div class="sa-prog-row"><span class="sa-prog-label">平均売上達成率</span><span class="sa-prog-pct">' + avgAch + '%</span></div>'
+    + '<div class="sa-track"><div class="sa-fill ' + fillClass + '" style="width:' + Math.min(avgAch, 100) + '%"></div></div>'
+    + '</div>'
+    + '</div>';
+  document.getElementById('st-summary').innerHTML = summaryHtml;
+
+  // --- 異常検知 ---
+  var alertHtml = '';
+  if(list.length >= 2){
+    var top = list[0];
+    var lowPerformers = list.filter(function(s){ return s.ach < 50 && s.sales > 0; });
+    var zeroPerformers = list.filter(function(s){ return s.sales === 0; });
+    alertHtml = '<div class="sa-alert">';
+    alertHtml += '<div class="sa-alert-title">⚡ パフォーマンス分析</div>';
+    alertHtml += '🏆 <b>トップ:</b> ' + top.name + (top.store && store==='ALL'?' ('+top.store+')':'') + ' — 達成率 ' + Math.round(top.ach) + '%';
+    if(top.keiyakuR) alertHtml += ' / 契約率 ' + top.keiyakuR;
+    alertHtml += '<br>';
+    if(lowPerformers.length > 0){
+      alertHtml += '⚠️ <b>要フォロー (' + lowPerformers.length + '名):</b> ';
+      alertHtml += lowPerformers.map(function(s){ return s.name + ' (' + Math.round(s.ach) + '%)'; }).join('、') + '<br>';
     }
-
-    var shinkiPct = s.shinkiT > 0 ? Math.min(s.shinkiA / s.shinkiT * 100, 100) : 0;
-    document.getElementById('k-shinki-a').textContent   = (s.shinkiAStr || '---') + (s.shinkiAStr ? '人' : '');
-    document.getElementById('k-shinki-t').textContent   = (s.shinkiTStr || '---') + (s.shinkiTStr ? '人' : '');
-    document.getElementById('k-shinki-bar').style.width = shinkiPct + '%';
-    if (s.shinkiProg) {
-      var bs = document.getElementById('k-shinki-badge');
-      bs.textContent = s.shinkiProg;
-      bs.className   = 'badge ' + (toNum(s.shinkiProg) >= 100 ? 'up' : 'neutral');
+    if(zeroPerformers.length > 0){
+      alertHtml += '🔴 <b>売上0円 (' + zeroPerformers.length + '名):</b> ';
+      alertHtml += zeroPerformers.map(function(s){ return s.name; }).join('、');
     }
-
-    var tankaPct = s.tankaT > 0 ? Math.min(s.tankaA / s.tankaT * 100, 100) : 0;
-    document.getElementById('k-tanka-a').textContent   = dispYen(s.tankaAStr) || '---';
-    document.getElementById('k-tanka-t').textContent   = dispYen(s.tankaTStr) || '---';
-    document.getElementById('k-tanka-bar').style.width = tankaPct + '%';
-
-    var keiyakuPct = s.keiyakuT > 0 ? Math.min(s.keiyakuA / s.keiyakuT * 100, 100) : 0;
-    document.getElementById('k-keiyaku-a').textContent   = (s.keiyakuAStr || '---') + (s.keiyakuAStr ? '件' : '');
-    document.getElementById('k-keiyaku-t').textContent   = (s.keiyakuTStr || '---') + (s.keiyakuTStr ? '件' : '');
-    document.getElementById('k-keiyaku-bar').style.width = keiyakuPct + '%';
-
-    document.getElementById('k-kr-a').textContent = s.keiyakuRA || '---';
-    document.getElementById('k-kr-t').textContent = s.keiyakuRT || '---';
-    var krNum = toNum(s.keiyakuRA);
-    var krTarget = toNum(s.keiyakuRT);
-    document.getElementById('k-kr-bar').style.width = (krTarget > 0 ? Math.min(krNum / krTarget * 100, 100) : 0) + '%';
-
-    document.getElementById('k-forecast').textContent  = dispYen(s.salesForecastStr) || '---';
-    // AI FB for KPI tab
-    var kaiEl = document.getElementById('kpi-ai-text');
-    if(kaiEl && s) {
-      var sp2 = toNum(s.salesProg);
-      var kr = toNum(s.keiyakuRA);
-      var krt = toNum(s.keiyakuRT);
-      var ta = toNum(s.tankaAStr);
-      var tt = toNum(s.tankaTStr);
-      var kmsg = '<b>AI KPI総合診断：</b>';
-      if(sp2>=90) kmsg += '売上は目標ペースに近く好調です。';
-      else if(sp2>=60) kmsg += '売上進捗'+s.salesProg+'。着地見込みを意識した後半の追い込みが鍵です。';
-      else kmsg += '売上進捗'+s.salesProg+'。残日数と着地見込みを確認し、優先アクションを絞り込みましょう。';
-      kmsg += '<span class="ai-point">客単価：'+dispYen(s.tankaAStr)+'（目標比'+(tt>0?Math.round(ta/tt*100):'-')+'%）'+(ta>=tt?'— 高単価施術の提案が効いています✨':'— アップセル提案（回数券・化粧品セット）を増やしましょう')+'</span>';
-      kmsg += '<span class="ai-point">新規契約率：'+s.keiyakuRA+'（目標'+s.keiyakuRT+'）'+(kr>=krt?'— カウンセリング力◎':'— 成約フローを見直し、クロージングタイミングを練習しましょう')+'</span>';
-      kaiEl.innerHTML = kmsg;
-    }
-    document.getElementById('k-sales-prog').textContent = s.salesProg || '---';
-
-    // 詳細KPIリスト（プログレスバー形式）
-    if (details.length > 0) {
-      var cols = ['rose','coral','gold','lav','mint','rose'];
-      var listHtml = '';
-      for (var i = 0; i < details.length; i++) {
-        var d = details[i];
-        var c = cols[i % cols.length];
-        var pct = d.progressNum;
-        var isYen = /[¥￥]/.test(d.actual + d.target);
-        var actualDisp  = isYen ? dispYen(d.actual)  : d.actual;
-        var targetDisp  = isYen ? dispYen(d.target)  : d.target;
-        var forecastDisp = isYen ? dispYen(d.forecast) : d.forecast;
-        listHtml += '<div class="card" style="padding:14px 16px;margin-bottom:10px">'
-          + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">'
-          + '<div style="font-size:12px;font-weight:700;color:var(--text)">' + d.name + '</div>'
-          + (pct > 0 ? '<span class="badge ' + (pct >= 100 ? 'up' : pct >= 60 ? 'neutral' : 'down') + '">' + d.progress + '</span>' : '')
-          + '</div>'
-          + '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">'
-          + '<div style="flex:1;min-width:0;background:var(--bg2);border-radius:8px;padding:8px 10px">'
-          + '<div style="font-size:9px;color:var(--text3);font-weight:600;letter-spacing:.5px;margin-bottom:2px">実績</div>'
-          + '<div style="font-family:\'Cormorant Garamond\',serif;font-size:16px;font-weight:600;color:var(--rose)">' + (actualDisp || '---') + '</div>'
-          + '</div>'
-          + '<div style="flex:1;min-width:0;background:var(--bg2);border-radius:8px;padding:8px 10px">'
-          + '<div style="font-size:9px;color:var(--text3);font-weight:600;letter-spacing:.5px;margin-bottom:2px">目標</div>'
-          + '<div style="font-family:\'Cormorant Garamond\',serif;font-size:16px;font-weight:600;color:var(--text)">' + (targetDisp || '---') + '</div>'
-          + '</div>'
-          + (forecastDisp && forecastDisp !== '---' ? '<div style="flex:1;min-width:0;background:var(--bg2);border-radius:8px;padding:8px 10px">'
-          + '<div style="font-size:9px;color:var(--text3);font-weight:600;letter-spacing:.5px;margin-bottom:2px">着地見込み</div>'
-          + '<div style="font-family:\'Cormorant Garamond\',serif;font-size:16px;font-weight:600;color:var(--text)">' + forecastDisp + '</div>'
-          + '</div>' : '')
-          + '</div>'
-          + (pct > 0 ? '<div style="font-size:10px;color:var(--text3);margin-bottom:4px">' + d.progress + '</div>'
-          + '<div class="kc-bar-wrap"><div class="kc-bar ' + c + '" style="width:' + Math.min(pct, 100) + '%"></div></div>' : '')
-          + '</div>';
-      }
-      document.getElementById('kpi-detail-list').innerHTML = listHtml;
-      triggerCounterAnim('kpi-detail-list');
-    }
-
-    // 達成率棒グラフ
-    var barLabels = details.map(function(d) { return d.name; });
-    var barData   = details.map(function(d) { return d.progressNum || 0; });
-    var ctx = document.getElementById('kpiBarChart').getContext('2d');
-    if (charts.kpiBar) charts.kpiBar.destroy();
-    if (barLabels.length > 0) {
-      charts.kpiBar = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: barLabels,
-          datasets: [{
-            label: '達成率(%)',
-            data: barData,
-            backgroundColor: barData.map(function(v) {
-              return v >= 100 ? 'rgba(75,173,140,.75)' : v >= 60 ? 'rgba(200,146,58,.75)' : 'rgba(212,96,122,.75)';
-            }),
-            borderRadius: 8, borderSkipped: false
-          }, {
-            label: '目標ライン',
-            data: barLabels.map(function() { return 100; }),
-            type: 'line', borderColor: 'rgba(139,107,196,.5)',
-            borderWidth: 1.5, borderDash: [4, 4], pointRadius: 0, fill: false
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: { legend: { display: false } },
-          scales: {
-            y: { min: 0, ticks: { callback: function(v) { return v + '%'; }, color: '#9E8A90', font: { size: 10 } }, grid: { color: 'rgba(0,0,0,0.05)' } },
-            x: { ticks: { color: '#6B5A60', font: { size: 9 }, maxRotation: 30 }, grid: { display: false } }
-          }
-        }
-      });
-    }
-  } catch(e) {
-    console.error('buildKPI error:', e);
+    alertHtml += '</div>';
   }
+  document.getElementById('st-alert').innerHTML = alertHtml;
+
+  // --- スタッフランキング ---
+  var maxSales = list.length > 0 && list[0].sales > 0 ? list[0].sales : 1;
+  var rowsHtml = '<div class="sa-staff-card">';
+  if(list.length === 0){
+    rowsHtml += '<div style="padding:20px;text-align:center;color:var(--text3);font-size:12px">スタッフデータがありません</div>';
+  }
+  list.forEach(function(s, i){
+    var rnkCls = i===0?'g':i===1?'s':i===2?'b':'';
+    var achR = Math.round(s.ach);
+    var achCls = achR >= 100 ? 'up' : achR >= 60 ? 'warn' : 'down';
+    var barPct = maxSales > 0 ? Math.round(s.sales / maxSales * 100) : 0;
+    var barCol = achR >= 100 ? 'var(--g-mint)' : achR >= 60 ? 'var(--g-gold)' : 'var(--g-rose)';
+    var salesDisp = s.sales > 0 ? (s.sales >= 1000000 ? Math.round(s.sales/10000)+'万円' : s.sales >= 10000 ? Math.round(s.sales/10000*10)/10+'万円' : s.sales.toLocaleString()+'円') : '0円';
+    var unitDisp = s.unit > 0 ? '¥'+Math.round(s.unit).toLocaleString() : '---';
+    var storeBadge = store === 'ALL' ? '<span style="font-size:9px;background:var(--bg2);color:var(--text3);padding:2px 6px;border-radius:8px;margin-left:4px">'+s.store+'</span>' : '';
+    rowsHtml += '<div class="sa-staff-row">'
+      + '<div class="sa-rank-num ' + rnkCls + '">' + (i+1) + '</div>'
+      + '<div class="sa-staff-info">'
+      + '<div class="sa-staff-name">' + s.name + storeBadge + '</div>'
+      + '<div class="sa-staff-meta">契約率 ' + s.keiyakuR + ' ／ 継続率 ' + s.keizoku + ' ／ 単価 ' + unitDisp + '</div>'
+      + '<div class="sa-mini-bar"><div class="sa-mini-fill" style="width:'+barPct+'%;background:'+barCol+'"></div></div>'
+      + '</div>'
+      + '<div class="sa-staff-right">'
+      + '<div class="sa-staff-sales">' + salesDisp + '</div>'
+      + '<div class="sa-staff-ach ' + achCls + '">' + achR + '%達成</div>'
+      + '</div>'
+      + '</div>';
+  });
+  rowsHtml += '</div>';
+  document.getElementById('st-staff-list').innerHTML = rowsHtml;
 }
 
 // ===== スタッフタブ =====
@@ -2430,11 +2352,10 @@ async function loadData(){
     var staff=parseStaff(staffRows);
 
     buildOverview(stores,kpi);
-    buildStore(stores);
-    buildKPI(kpi);
+    buildStore(stores, staff);
     buildStaff(staff);
     buildRanking(stores,staff);
-    buildStoreAnal(staff);
+    buildAction(stores, staff);
 
     var now=new Date();
     document.getElementById('updChip').textContent=now.getHours()+':'+String(now.getMinutes()).padStart(2,'0')+' 更新';
@@ -2543,139 +2464,102 @@ function checkPin() {
   }
 }
 
-// ===== 店舗分析タブ =====
-var _saCurrentStore = 'ALL';
-var _saChart = null;
-var _saStaffAll = [];
 
-function buildStoreAnal(staffList) {
-  // 店舗あり(col0非空)のスタッフのみ対象
-  _saStaffAll = staffList.filter(function(s){ return s.store && s.store !== ''; });
-  // 店舗一覧（順序保持）
-  var stores = [];
-  var seen = {};
-  _saStaffAll.forEach(function(s){
-    if(!seen[s.store]){ seen[s.store]=true; stores.push(s.store); }
-  });
-  // フィルターボタン
-  var filterEl = document.getElementById('sa-filter');
-  var btns = '<button class="sa-filter-btn active" onclick="saFilter(\'ALL\',this)">ALL</button>';
-  stores.forEach(function(st){
-    btns += '<button class="sa-filter-btn" onclick="saFilter(\''+st+'\',this)">'+st+'</button>';
-  });
-  filterEl.innerHTML = btns;
-  saRender('ALL');
-}
+// ===== アクション提案タブ =====
+function buildAction(stores, staffList) {
+  var staff = (staffList||[]).filter(function(s){ return s.store && s.store !== '' && s.sales > 0; });
+  var allStaff = (staffList||[]).filter(function(s){ return s.store && s.store !== ''; });
 
-function saFilter(store, btn) {
-  _saCurrentStore = store;
-  document.querySelectorAll('.sa-filter-btn').forEach(function(b){ b.classList.remove('active'); });
-  btn.classList.add('active');
-  saRender(store);
-}
+  // 現状サマリー
+  var totalSales = staff.reduce(function(sum,s){return sum+s.sales;},0);
+  var avgAch = staff.length>0 ? Math.round(staff.reduce(function(sum,s){return sum+s.ach;},0)/staff.length) : 0;
+  var lowPerf = allStaff.filter(function(s){return s.ach < 60;});
+  var highPerf = staff.filter(function(s){return s.ach >= 100;});
+  var avgUnit = staff.length>0 ? Math.round(staff.reduce(function(sum,s){return sum+s.unit;},0)/staff.length) : 0;
 
-function saRender(store) {
-  var list = store === 'ALL' ? _saStaffAll : _saStaffAll.filter(function(s){ return s.store === store; });
-  // 売上降順ソート
-  list = list.slice().sort(function(a,b){ return b.sales - a.sales; });
-
-  // --- サマリー ---
-  var totalSales = 0, totalAch = 0, keiyakuSum = 0, keizokuSum = 0, validN = 0;
-  list.forEach(function(s){
-    totalSales += s.sales;
-    totalAch += s.ach;
-    var kr = parseFloat(String(s.keiyakuR).replace('%',''));
-    if(!isNaN(kr) && kr > 0){ keiyakuSum += kr; validN++; }
-  });
-  var avgAch = list.length > 0 ? Math.round(totalAch / list.length) : 0;
-  var avgKeiyaku = validN > 0 ? Math.round(keiyakuSum / validN * 10) / 10 : 0;
-  var achPct = Math.min(avgAch, 150);
-  var fillClass = achPct >= 100 ? 'good' : achPct >= 60 ? '' : 'warn';
-  var storeName = store === 'ALL' ? '全店舗' : store;
-
-  var summaryHtml = '<div class="sa-summary">'
-    + '<div class="sa-summary-name">🏪 ' + storeName + '</div>'
+  var summaryHtml = '<div class="sa-summary" style="background:linear-gradient(135deg,#1a1040,#2d1b6e);color:#fff;border:none">'
+    + '<div style="font-size:13px;font-weight:700;margin-bottom:10px;opacity:.9">📊 現状スナップショット（' + (new Date().getMonth()+1) + '月）</div>'
     + '<div class="sa-stats">'
-    + '<div class="sa-stat"><div class="sa-stat-val">' + (totalSales >= 10000 ? Math.round(totalSales/10000*10)/10 + '万' : totalSales.toLocaleString()) + '円</div><div class="sa-stat-lbl">合計売上</div></div>'
-    + '<div class="sa-stat"><div class="sa-stat-val">' + avgKeiyaku + '%</div><div class="sa-stat-lbl">平均契約率</div></div>'
-    + '<div class="sa-stat"><div class="sa-stat-val">' + list.length + '名</div><div class="sa-stat-lbl">スタッフ数</div></div>'
-    + '</div>'
-    + '<div class="sa-prog-wrap">'
-    + '<div class="sa-prog-row"><span class="sa-prog-label">平均売上達成率</span><span class="sa-prog-pct">' + avgAch + '%</span></div>'
-    + '<div class="sa-track"><div class="sa-fill ' + fillClass + '" style="width:' + Math.min(achPct, 100) + '%"></div></div>'
+    + '<div class="sa-stat" style="background:rgba(255,255,255,.1)"><div class="sa-stat-val" style="color:#fff">' + (totalSales>=1000000?Math.round(totalSales/10000)+'万':'--') + '円</div><div class="sa-stat-lbl" style="color:rgba(255,255,255,.7)">全店合計売上</div></div>'
+    + '<div class="sa-stat" style="background:rgba(255,255,255,.1)"><div class="sa-stat-val" style="color:#fff">' + avgAch + '%</div><div class="sa-stat-lbl" style="color:rgba(255,255,255,.7)">平均達成率</div></div>'
+    + '<div class="sa-stat" style="background:rgba(255,255,255,.1)"><div class="sa-stat-val" style="color:#fff">' + highPerf.length + '名</div><div class="sa-stat-lbl" style="color:rgba(255,255,255,.7)">目標達成者</div></div>'
     + '</div>'
     + '</div>';
-  document.getElementById('sa-summary').innerHTML = summaryHtml;
+  document.getElementById('action-summary').innerHTML = summaryHtml;
 
-  // --- 異常検知 ---
-  var alertHtml = '';
-  if(list.length >= 2){
-    var top = list[0];
-    var bottom = list[list.length - 1];
-    var lowPerformers = list.filter(function(s){ return s.ach < 50; });
-    alertHtml = '<div class="sa-alert">';
-    alertHtml += '<div class="sa-alert-title">⚡ パフォーマンス分析</div>';
-    alertHtml += '🏆 <b>トップ:</b> ' + top.name + ' — 達成率 ' + Math.round(top.ach) + '% / 売上 ' + (top.sales >= 10000 ? Math.round(top.sales/10000*10)/10 + '万円' : top.sales.toLocaleString() + '円') + '<br>';
-    if(lowPerformers.length > 0){
-      alertHtml += '⚠️ <b>要フォロー (' + lowPerformers.length + '名):</b> ';
-      alertHtml += lowPerformers.map(function(s){ return s.name + '(' + Math.round(s.ach) + '%)'; }).join('、');
-    }
-    alertHtml += '</div>';
+  // アクション提案カード
+  var actions = [];
+
+  // 低達成スタッフへの対応
+  if(lowPerf.length > 0){
+    actions.push({
+      priority:'🔴 緊急',
+      color:'var(--rose)',
+      bg:'var(--rose-p)',
+      title:'低達成スタッフの個別フォロー（' + lowPerf.length + '名）',
+      detail: lowPerf.slice(0,3).map(function(s){return s.name+'（'+Math.round(s.ach)+'%達成）';}).join('、'),
+      actions:['個別面談でボトルネック特定','施術件数・カウンセリング時間を確認','トップスタッフとペアで施術体験']
+    });
   }
-  document.getElementById('sa-alert').innerHTML = alertHtml;
 
-  // --- スタッフランキング ---
-  var maxSales = list.length > 0 ? list[0].sales : 1;
-  var rowsHtml = '<div class="sa-staff-card">';
-  list.forEach(function(s, i){
-    var rnkCls = i===0?'g':i===1?'s':i===2?'b':'';
-    var achR = Math.round(s.ach);
-    var achCls = achR >= 100 ? 'up' : achR >= 60 ? 'warn' : 'down';
-    var barPct = maxSales > 0 ? Math.round(s.sales / maxSales * 100) : 0;
-    var barCol = achR >= 100 ? 'var(--g-mint)' : achR >= 60 ? 'var(--g-gold)' : 'var(--g-rose)';
-    var salesDisp = s.sales > 0 ? (s.sales >= 10000 ? Math.round(s.sales/10000*10)/10 + '万円' : s.sales.toLocaleString() + '円') : '0円';
-    var unitDisp = s.unit > 0 ? '¥' + Math.round(s.unit).toLocaleString() : '---';
-    rowsHtml += '<div class="sa-staff-row">'
-      + '<div class="sa-rank-num ' + rnkCls + '">' + (i+1) + '</div>'
-      + '<div class="sa-staff-info">'
-      + '<div class="sa-staff-name">' + s.name + '</div>'
-      + '<div class="sa-staff-meta">契約率 ' + s.keiyakuR + ' ／ 継続率 ' + s.keizoku + ' ／ 単価 ' + unitDisp + '</div>'
-      + '<div class="sa-mini-bar"><div class="sa-mini-fill" style="width:' + barPct + '%;background:' + barCol + '"></div></div>'
+  // 単価UP施策
+  if(avgUnit > 0){
+    actions.push({
+      priority:'🟡 重要',
+      color:'var(--gold)',
+      bg:'var(--gold-p)',
+      title:'客単価UP施策（現状平均 ¥' + avgUnit.toLocaleString() + '）',
+      detail:'回数券・コース提案・アップセルトークの強化',
+      actions:['カウンセリング時のコース提案を必須化','施術後のホームケア提案を徹底','回数券割引率の見直しで購入ハードルを下げる']
+    });
+  }
+
+  // 継続率改善
+  actions.push({
+    priority:'🟡 重要',
+    color:'var(--mint)',
+    bg:'var(--mint-p)',
+    title:'再来・継続促進施策',
+    detail:'継続率向上で売上安定化',
+    actions:['施術後に次回予約を必ず入れる（当日予約化）','LINE登録を促進してリマインド強化','継続特典・回数券で離脱防止']
+  });
+
+  // トップ事例横展開
+  if(highPerf.length > 0){
+    actions.push({
+      priority:'🟢 推奨',
+      color:'var(--lav)',
+      bg:'var(--lav-p)',
+      title:'トップパフォーマーの事例共有',
+      detail: highPerf[0].name + 'など' + highPerf.length + '名の成功パターンを全店展開',
+      actions:['週次ミーティングで成功事例を発表','カウンセリングトーク・提案タイミングをマニュアル化','店舗間の横断ロールプレイ実施']
+    });
+  }
+
+  // 新規集客
+  actions.push({
+    priority:'🟢 推奨',
+    color:'var(--coral)',
+    bg:'var(--coral-p)',
+    title:'新規集客強化',
+    detail:'SNS・HPB・紹介制度の活用',
+    actions:['InstagramのBefore/After投稿を週3回以上','HPBのクーポン・写真を更新して露出UP','紹介制度（紹介者・被紹介者双方に特典）の告知']
+  });
+
+  var cardsHtml = '';
+  actions.forEach(function(a){
+    cardsHtml += '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;box-shadow:var(--sh);border-left:4px solid '+a.color+'">'
+      + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'
+      + '<span style="font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:'+a.bg+';color:'+a.color+'">'+a.priority+'</span>'
       + '</div>'
-      + '<div class="sa-staff-right">'
-      + '<div class="sa-staff-sales">' + salesDisp + '</div>'
-      + '<div class="sa-staff-ach ' + achCls + '">' + achR + '%達成</div>'
+      + '<div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px">'+a.title+'</div>'
+      + '<div style="font-size:11px;color:var(--text2);margin-bottom:10px">'+a.detail+'</div>'
+      + '<div style="font-size:11px;color:var(--text2)">'
+      + a.actions.map(function(act){ return '<div style="display:flex;gap:6px;margin-bottom:5px"><span style="color:'+a.color+';flex-shrink:0">▶</span><span>'+act+'</span></div>'; }).join('')
       + '</div>'
       + '</div>';
   });
-  rowsHtml += '</div>';
-  document.getElementById('sa-staff-list').innerHTML = rowsHtml;
-
-  // --- 棒グラフ ---
-  var labels = list.map(function(s){ return s.name.split(/[\s　]/)[0]; });
-  var salesData = list.map(function(s){ return s.sales; });
-  var achData = list.map(function(s){ return Math.min(s.ach, 200); });
-  var ctx = document.getElementById('saChart').getContext('2d');
-  if(_saChart) _saChart.destroy();
-  _saChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: labels,
-      datasets: [
-        { label: '売上(円)', data: salesData, backgroundColor: 'rgba(212,96,122,0.75)', borderRadius: 6, yAxisID: 'y' },
-        { label: '達成率(%)', data: achData, backgroundColor: 'rgba(75,173,140,0.5)', borderRadius: 6, yAxisID: 'y2', type: 'line', tension: 0.3, borderColor: 'rgba(75,173,140,0.9)', borderWidth: 2, pointBackgroundColor: 'rgba(75,173,140,1)', fill: false }
-      ]
-    },
-    options: {
-      responsive: true,
-      plugins: { legend: { labels: { font: { size: 11 } } }, tooltip: { mode: 'index', intersect: false } },
-      scales: {
-        y: { position: 'left', ticks: { font: { size: 10 }, callback: function(v){ return v >= 10000 ? Math.round(v/10000*10)/10 + '万' : v; } } },
-        y2: { position: 'right', min: 0, max: 200, ticks: { font: { size: 10 }, callback: function(v){ return v + '%'; } }, grid: { drawOnChartArea: false } },
-        x: { ticks: { font: { size: 10 }, maxRotation: 45 } }
-      }
-    }
-  });
+  document.getElementById('action-cards').innerHTML = cardsHtml;
 }
 
 initPinLock();
