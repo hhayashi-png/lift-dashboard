@@ -2024,9 +2024,9 @@ function buildStore(stores, staffList) {
   _stStaff.forEach(function(s){ if(!seen[s.store]){seen[s.store]=true;storeNames.push(s.store);} });
 
   var filterEl = document.getElementById('st-filter');
-  var btns = '<button class="sa-filter-btn active" onclick="stFilter('ALL',this)">ALL</button>';
+  var btns = '<button class="sa-filter-btn active" onclick="stFilter(\'ALL\',this)">ALL</button>';
   storeNames.forEach(function(st){
-    btns += '<button class="sa-filter-btn" onclick="stFilter(''+st+'',this)">'+st+'</button>';
+    btns += '<button class="sa-filter-btn" onclick="stFilter(\''+st+'\',this)">'+st+'</button>';
   });
   filterEl.innerHTML = btns;
 
