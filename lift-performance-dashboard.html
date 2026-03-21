@@ -366,6 +366,46 @@
     .ai-point{display:block;margin-top:6px;padding-left:14px;position:relative;font-size:12px;line-height:1.7;color:rgba(255,255,255,.88)}
     .ai-point::before{content:'▸';position:absolute;left:0;color:#A888D8}
 
+  /* ===== 店舗分析タブ ===== */
+  .sa-filter{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:16px;-webkit-overflow-scrolling:touch}
+  .sa-filter-btn{flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;background:var(--surface);border:1.5px solid var(--border);color:var(--text3);cursor:pointer;transition:all .2s;white-space:nowrap}
+  .sa-filter-btn.active{background:var(--g-rose);border-color:transparent;color:#fff}
+  .sa-summary{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:16px;box-shadow:var(--sh)}
+  .sa-summary-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .sa-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+  .sa-stat{background:var(--bg2);border-radius:var(--rx);padding:10px 8px;text-align:center}
+  .sa-stat-val{font-size:16px;font-weight:700;color:var(--rose);font-variant-numeric:tabular-nums}
+  .sa-stat-lbl{font-size:9px;color:var(--text3);margin-top:3px;letter-spacing:.5px}
+  .sa-prog-wrap{margin-top:6px}
+  .sa-prog-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+  .sa-prog-label{font-size:10px;font-weight:700;color:var(--text2)}
+  .sa-prog-pct{font-size:12px;font-weight:700;color:var(--rose)}
+  .sa-track{height:8px;background:var(--bg2);border-radius:8px;overflow:hidden}
+  .sa-fill{height:100%;border-radius:8px;transition:width 1s ease;background:var(--g-rose)}
+  .sa-fill.good{background:var(--g-mint)}
+  .sa-fill.warn{background:var(--g-gold)}
+  .sa-staff-row{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--border2);position:relative}
+  .sa-staff-row:last-child{border-bottom:none}
+  .sa-staff-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:12px;box-shadow:var(--sh)}
+  .sa-rank-num{width:26px;height:26px;border-radius:50%;background:var(--bg2);font-size:11px;font-weight:700;color:var(--text3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .sa-rank-num.g{background:var(--g-gold);color:#fff}
+  .sa-rank-num.s{background:linear-gradient(135deg,#C0C0C0,#E8E8E8);color:#fff}
+  .sa-rank-num.b{background:linear-gradient(135deg,#CD7F32,#E8A060);color:#fff}
+  .sa-staff-info{flex:1;min-width:0}
+  .sa-staff-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .sa-staff-meta{font-size:10px;color:var(--text3)}
+  .sa-staff-right{text-align:right;flex-shrink:0}
+  .sa-staff-sales{font-size:13px;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
+  .sa-staff-ach{font-size:10px;font-weight:700;margin-top:2px}
+  .sa-staff-ach.up{color:var(--mint)}
+  .sa-staff-ach.warn{color:var(--gold)}
+  .sa-staff-ach.down{color:var(--rose)}
+  .sa-mini-bar{height:4px;background:var(--bg2);border-radius:4px;overflow:hidden;margin-top:5px;width:100%}
+  .sa-mini-fill{height:100%;border-radius:4px;transition:width 1s ease}
+  .sa-alert{background:linear-gradient(135deg,#FFF8E0,#FFFBE8);border:1px solid var(--gold-l);border-radius:var(--rs);padding:12px 14px;margin-bottom:12px;font-size:11px;color:var(--text2);line-height:1.7}
+  .sa-alert-title{font-size:11px;font-weight:700;color:var(--gold);margin-bottom:5px;display:flex;align-items:center;gap:5px}
+  .sa-chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:16px;box-shadow:var(--sh)}
+
   </style>
 </head>
 <body>
@@ -941,6 +981,37 @@
   </div>
 
 
+  <!-- 店舗分析 -->
+  <div class="tab-panel" id="tab-storeanal">
+    <div class="pg-title">
+      <div class="pg-title-row">
+        <h2>店舗<em>分析</em></h2>
+        <span class="t-badge">ANALYTICS</span>
+      </div>
+      <p>店舗別スタッフパフォーマンス・比較分析</p>
+    </div>
+
+    <!-- 店舗フィルター -->
+    <div class="sec-label"><span class="dot"></span>店舗を選択</div>
+    <div class="sa-filter" id="sa-filter"></div>
+
+    <!-- サマリーカード -->
+    <div id="sa-summary"></div>
+
+    <!-- 異常検知アラート -->
+    <div id="sa-alert"></div>
+
+    <!-- スタッフランキング -->
+    <div class="sec-label"><span class="dot"></span>スタッフ別パフォーマンス</div>
+    <div id="sa-staff-list"></div>
+
+    <!-- 棒グラフ -->
+    <div class="sec-label"><span class="dot"></span>売上グラフ</div>
+    <div class="sa-chart-wrap">
+      <canvas id="saChart" height="240"></canvas>
+    </div>
+  </div>
+
 <!-- ボトムナビ -->
 <nav class="bnav">
   <div class="bnav-inner" style="gap:0">
@@ -950,6 +1021,7 @@
     <button class="ni" onclick="go('staff',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">👥</span><span class="ni-lbl" style="font-size:8px">スタッフ</span><span class="ni-dot"></span></button>
     <button class="ni" onclick="go('rank',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">🏆</span><span class="ni-lbl" style="font-size:8px">順位</span><span class="ni-dot"></span></button>
     <button class="ni" onclick="go('knowledge',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">💡</span><span class="ni-lbl" style="font-size:8px">知識</span><span class="ni-dot"></span></button>
+    <button class="ni" onclick="go('storeanal',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">📊</span><span class="ni-lbl" style="font-size:8px">分析</span><span class="ni-dot"></span></button>
   </div>
 </nav>
 
@@ -2360,6 +2432,7 @@ async function loadData(){
     buildKPI(kpi);
     buildStaff(staff);
     buildRanking(stores,staff);
+    buildStoreAnal(staff);
 
     var now=new Date();
     document.getElementById('updChip').textContent=now.getHours()+':'+String(now.getMinutes()).padStart(2,'0')+' 更新';
@@ -2466,6 +2539,141 @@ function checkPin() {
       setTimeout(function() { document.getElementById('pinErr').textContent = ''; }, 2000);
     }, 450);
   }
+}
+
+// ===== 店舗分析タブ =====
+var _saCurrentStore = 'ALL';
+var _saChart = null;
+var _saStaffAll = [];
+
+function buildStoreAnal(staffList) {
+  // 店舗あり(col0非空)のスタッフのみ対象
+  _saStaffAll = staffList.filter(function(s){ return s.store && s.store !== ''; });
+  // 店舗一覧（順序保持）
+  var stores = [];
+  var seen = {};
+  _saStaffAll.forEach(function(s){
+    if(!seen[s.store]){ seen[s.store]=true; stores.push(s.store); }
+  });
+  // フィルターボタン
+  var filterEl = document.getElementById('sa-filter');
+  var btns = '<button class="sa-filter-btn active" onclick="saFilter(\'ALL\',this)">ALL</button>';
+  stores.forEach(function(st){
+    btns += '<button class="sa-filter-btn" onclick="saFilter(\''+st+'\',this)">'+st+'</button>';
+  });
+  filterEl.innerHTML = btns;
+  saRender('ALL');
+}
+
+function saFilter(store, btn) {
+  _saCurrentStore = store;
+  document.querySelectorAll('.sa-filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  saRender(store);
+}
+
+function saRender(store) {
+  var list = store === 'ALL' ? _saStaffAll : _saStaffAll.filter(function(s){ return s.store === store; });
+  // 売上降順ソート
+  list = list.slice().sort(function(a,b){ return b.sales - a.sales; });
+
+  // --- サマリー ---
+  var totalSales = 0, totalAch = 0, keiyakuSum = 0, keizokuSum = 0, validN = 0;
+  list.forEach(function(s){
+    totalSales += s.sales;
+    totalAch += s.ach;
+    var kr = parseFloat(String(s.keiyakuR).replace('%',''));
+    if(!isNaN(kr) && kr > 0){ keiyakuSum += kr; validN++; }
+  });
+  var avgAch = list.length > 0 ? Math.round(totalAch / list.length) : 0;
+  var avgKeiyaku = validN > 0 ? Math.round(keiyakuSum / validN * 10) / 10 : 0;
+  var achPct = Math.min(avgAch, 150);
+  var fillClass = achPct >= 100 ? 'good' : achPct >= 60 ? '' : 'warn';
+  var storeName = store === 'ALL' ? '全店舗' : store;
+
+  var summaryHtml = '<div class="sa-summary">'
+    + '<div class="sa-summary-name">🏪 ' + storeName + '</div>'
+    + '<div class="sa-stats">'
+    + '<div class="sa-stat"><div class="sa-stat-val">' + (totalSales >= 10000 ? Math.round(totalSales/10000*10)/10 + '万' : totalSales.toLocaleString()) + '円</div><div class="sa-stat-lbl">合計売上</div></div>'
+    + '<div class="sa-stat"><div class="sa-stat-val">' + avgKeiyaku + '%</div><div class="sa-stat-lbl">平均契約率</div></div>'
+    + '<div class="sa-stat"><div class="sa-stat-val">' + list.length + '名</div><div class="sa-stat-lbl">スタッフ数</div></div>'
+    + '</div>'
+    + '<div class="sa-prog-wrap">'
+    + '<div class="sa-prog-row"><span class="sa-prog-label">平均売上達成率</span><span class="sa-prog-pct">' + avgAch + '%</span></div>'
+    + '<div class="sa-track"><div class="sa-fill ' + fillClass + '" style="width:' + Math.min(achPct, 100) + '%"></div></div>'
+    + '</div>'
+    + '</div>';
+  document.getElementById('sa-summary').innerHTML = summaryHtml;
+
+  // --- 異常検知 ---
+  var alertHtml = '';
+  if(list.length >= 2){
+    var top = list[0];
+    var bottom = list[list.length - 1];
+    var lowPerformers = list.filter(function(s){ return s.ach < 50; });
+    alertHtml = '<div class="sa-alert">';
+    alertHtml += '<div class="sa-alert-title">⚡ パフォーマンス分析</div>';
+    alertHtml += '🏆 <b>トップ:</b> ' + top.name + ' — 達成率 ' + Math.round(top.ach) + '% / 売上 ' + (top.sales >= 10000 ? Math.round(top.sales/10000*10)/10 + '万円' : top.sales.toLocaleString() + '円') + '<br>';
+    if(lowPerformers.length > 0){
+      alertHtml += '⚠️ <b>要フォロー (' + lowPerformers.length + '名):</b> ';
+      alertHtml += lowPerformers.map(function(s){ return s.name + '(' + Math.round(s.ach) + '%)'; }).join('、');
+    }
+    alertHtml += '</div>';
+  }
+  document.getElementById('sa-alert').innerHTML = alertHtml;
+
+  // --- スタッフランキング ---
+  var maxSales = list.length > 0 ? list[0].sales : 1;
+  var rowsHtml = '<div class="sa-staff-card">';
+  list.forEach(function(s, i){
+    var rnkCls = i===0?'g':i===1?'s':i===2?'b':'';
+    var achR = Math.round(s.ach);
+    var achCls = achR >= 100 ? 'up' : achR >= 60 ? 'warn' : 'down';
+    var barPct = maxSales > 0 ? Math.round(s.sales / maxSales * 100) : 0;
+    var barCol = achR >= 100 ? 'var(--g-mint)' : achR >= 60 ? 'var(--g-gold)' : 'var(--g-rose)';
+    var salesDisp = s.sales > 0 ? (s.sales >= 10000 ? Math.round(s.sales/10000*10)/10 + '万円' : s.sales.toLocaleString() + '円') : '0円';
+    var unitDisp = s.unit > 0 ? '¥' + Math.round(s.unit).toLocaleString() : '---';
+    rowsHtml += '<div class="sa-staff-row">'
+      + '<div class="sa-rank-num ' + rnkCls + '">' + (i+1) + '</div>'
+      + '<div class="sa-staff-info">'
+      + '<div class="sa-staff-name">' + s.name + '</div>'
+      + '<div class="sa-staff-meta">契約率 ' + s.keiyakuR + ' ／ 継続率 ' + s.keizoku + ' ／ 単価 ' + unitDisp + '</div>'
+      + '<div class="sa-mini-bar"><div class="sa-mini-fill" style="width:' + barPct + '%;background:' + barCol + '"></div></div>'
+      + '</div>'
+      + '<div class="sa-staff-right">'
+      + '<div class="sa-staff-sales">' + salesDisp + '</div>'
+      + '<div class="sa-staff-ach ' + achCls + '">' + achR + '%達成</div>'
+      + '</div>'
+      + '</div>';
+  });
+  rowsHtml += '</div>';
+  document.getElementById('sa-staff-list').innerHTML = rowsHtml;
+
+  // --- 棒グラフ ---
+  var labels = list.map(function(s){ return s.name.split(/[\s　]/)[0]; });
+  var salesData = list.map(function(s){ return s.sales; });
+  var achData = list.map(function(s){ return Math.min(s.ach, 200); });
+  var ctx = document.getElementById('saChart').getContext('2d');
+  if(_saChart) _saChart.destroy();
+  _saChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        { label: '売上(円)', data: salesData, backgroundColor: 'rgba(212,96,122,0.75)', borderRadius: 6, yAxisID: 'y' },
+        { label: '達成率(%)', data: achData, backgroundColor: 'rgba(75,173,140,0.5)', borderRadius: 6, yAxisID: 'y2', type: 'line', tension: 0.3, borderColor: 'rgba(75,173,140,0.9)', borderWidth: 2, pointBackgroundColor: 'rgba(75,173,140,1)', fill: false }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { labels: { font: { size: 11 } } }, tooltip: { mode: 'index', intersect: false } },
+      scales: {
+        y: { position: 'left', ticks: { font: { size: 10 }, callback: function(v){ return v >= 10000 ? Math.round(v/10000*10)/10 + '万' : v; } } },
+        y2: { position: 'right', min: 0, max: 200, ticks: { font: { size: 10 }, callback: function(v){ return v + '%'; } }, grid: { drawOnChartArea: false } },
+        x: { ticks: { font: { size: 10 }, maxRotation: 45 } }
+      }
+    }
+  });
 }
 
 initPinLock();
