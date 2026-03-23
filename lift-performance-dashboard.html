@@ -538,6 +538,41 @@
   .mkt-updated{font-size:10px;color:var(--text3);display:flex;align-items:center;gap:4px;margin-bottom:14px}
   .mkt-updated-dot{width:6px;height:6px;border-radius:50%;background:var(--mint);flex-shrink:0}
 
+
+  /* ===== AI自動生成 ===== */
+  .ai-gen-btn{display:flex;align-items:center;gap:6px;margin:10px 16px 0;padding:12px 18px;background:linear-gradient(135deg,#6C3EBB,#9B59D4);color:#fff;border:none;border-radius:14px;font-size:13px;font-weight:600;cursor:pointer;width:calc(100% - 32px);justify-content:center;box-shadow:0 4px 16px rgba(108,62,187,.35);letter-spacing:.3px}
+  .ai-gen-btn:active{opacity:.85;transform:scale(.98)}
+  .ai-gen-btn.running{background:linear-gradient(135deg,#888,#aaa);pointer-events:none}
+  .ai-key-row{display:flex;align-items:center;gap:8px;margin:6px 16px 0;justify-content:flex-end}
+  .ai-key-btn{background:none;border:1px solid var(--border);border-radius:8px;color:var(--text3);font-size:11px;padding:4px 10px;cursor:pointer}
+  .ai-key-btn.set{border-color:var(--mint);color:var(--mint)}
+
+  /* プログレスモーダル */
+  .ai-prog-overlay{position:fixed;inset:0;z-index:3000;background:rgba(45,35,40,.65);display:flex;align-items:center;justify-content:center;padding:20px}
+  .ai-prog-overlay.hidden{display:none}
+  .ai-prog-box{background:#fff;border-radius:22px;padding:28px 24px;width:100%;max-width:360px;box-shadow:0 8px 40px rgba(0,0,0,.2)}
+  .ai-prog-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px}
+  .ai-prog-sub{font-size:12px;color:var(--text3);margin-bottom:20px}
+  .ai-step-list{display:flex;flex-direction:column;gap:10px}
+  .ai-step{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:var(--bg2);font-size:12px;color:var(--text2);transition:all .3s}
+  .ai-step.active{background:var(--lav-p);color:var(--lav);font-weight:600}
+  .ai-step.done{background:var(--mint-p);color:var(--mint);font-weight:600}
+  .ai-step.error{background:#FFF2F2;color:#C04060;font-weight:600}
+  .ai-step-ico{font-size:18px;min-width:22px;text-align:center}
+  .ai-step-txt{flex:1}
+  .ai-spin{display:inline-block;animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* APIキーモーダル */
+  .ai-key-overlay{position:fixed;inset:0;z-index:3100;background:rgba(45,35,40,.65);display:flex;align-items:center;justify-content:center;padding:20px}
+  .ai-key-overlay.hidden{display:none}
+  .ai-key-box{background:#fff;border-radius:22px;padding:28px 24px;width:100%;max-width:360px}
+  .ai-key-box h3{font-size:15px;font-weight:700;margin-bottom:6px}
+  .ai-key-box p{font-size:12px;color:var(--text3);margin-bottom:16px;line-height:1.6}
+  .ai-key-input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:12px;font-size:12px;font-family:monospace;outline:none;margin-bottom:12px}
+  .ai-key-input:focus{border-color:var(--lav)}
+  .ai-key-save-btn{width:100%;padding:13px;background:linear-gradient(135deg,#6C3EBB,#9B59D4);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:8px}
+  .ai-key-cancel-btn{width:100%;padding:10px;background:none;border:1px solid var(--border);border-radius:12px;font-size:13px;color:var(--text3);cursor:pointer}
   </style>
 </head>
 <body>
@@ -1116,6 +1151,12 @@
       <p>美容業界の動向把握・意思決定・実行管理</p>
     </div>
 
+    <!-- AI自動生成ボタン -->
+    <button class="ai-gen-btn" id="ai-gen-btn" onclick="runAiGeneration()">✨ AIで市場調査を自動生成（マルチエージェント）</button>
+    <div class="ai-key-row">
+      <button class="ai-key-btn" id="ai-key-status-btn" onclick="openApiKeyModal()">⚙️ APIキー設定</button>
+    </div>
+
     <!-- 今週のサマリーヒーロー -->
     <div class="mkt-hero" id="mkt-hero-block">
       <div class="mkt-hero-date">
@@ -1124,6 +1165,31 @@
       </div>
       <div class="mkt-hero-title" id="mkt-hero-title">今週の市場サマリー</div>
       <div class="mkt-highlights" id="mkt-hero-points"></div>
+    </div>
+
+    <!-- AI進捗モーダル -->
+    <div class="ai-prog-overlay hidden" id="aiProgOverlay">
+      <div class="ai-prog-box">
+        <div class="ai-prog-title">✨ AI市場調査を生成中...</div>
+        <div class="ai-prog-sub">3つのAIエージェントが壁打ちして精度を高めています</div>
+        <div class="ai-step-list">
+          <div class="ai-step" id="ai-step-1"><span class="ai-step-ico">🔍</span><div class="ai-step-txt"><b>Agent 1 リサーチャー</b><br>競合・トレンド・ニーズを調査中</div></div>
+          <div class="ai-step" id="ai-step-2"><span class="ai-step-ico">🧐</span><div class="ai-step-txt"><b>Agent 2 批評家</b><br>調査の欠点・改善点を指摘中</div></div>
+          <div class="ai-step" id="ai-step-3"><span class="ai-step-ico">✏️</span><div class="ai-step-txt"><b>Agent 1 改善</b><br>批評を反映して回答を精緻化中</div></div>
+          <div class="ai-step" id="ai-step-4"><span class="ai-step-ico">📦</span><div class="ai-step-txt"><b>Agent 3 フォーマッター</b><br>ダッシュボード形式に変換中</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APIキー入力モーダル -->
+    <div class="ai-key-overlay hidden" id="aiKeyOverlay">
+      <div class="ai-key-box">
+        <h3>🔑 Claude APIキー設定</h3>
+        <p>Anthropic ConsoleのAPIキーを入力してください。キーはこのブラウザのLocalStorageにのみ保存され、外部には送信されません。</p>
+        <input class="ai-key-input" id="ai-key-input" type="password" placeholder="sk-ant-api03-...">
+        <button class="ai-key-save-btn" onclick="saveApiKey()">保存する</button>
+        <button class="ai-key-cancel-btn" onclick="closeApiKeyModal()">キャンセル</button>
+      </div>
     </div>
 
     <!-- PDCAサブタブ -->
@@ -2842,6 +2908,7 @@ function buildMarketResearch() {
   renderMktCheck();
   renderMktActionItems();
   renderMktHero();
+  updateAiKeyStatus();
 }
 
 function mktFmtDate(iso) {
@@ -3201,6 +3268,224 @@ function refreshMktPanel(type) {
     action_item: renderMktActionItems
   }[type];
   if (fn) fn();
+}
+
+// ===== AI自動生成（マルチエージェント） =====
+
+function openApiKeyModal() {
+  var stored = localStorage.getItem('lift_claude_api_key') || '';
+  document.getElementById('ai-key-input').value = stored ? '（設定済み）' : '';
+  document.getElementById('aiKeyOverlay').classList.remove('hidden');
+}
+
+function closeApiKeyModal() {
+  document.getElementById('aiKeyOverlay').classList.add('hidden');
+}
+
+function saveApiKey() {
+  var val = document.getElementById('ai-key-input').value.trim();
+  if (!val || val === '（設定済み）') { closeApiKeyModal(); return; }
+  if (!val.startsWith('sk-ant-')) {
+    alert('APIキーは sk-ant- から始まる文字列です。確認してください。');
+    return;
+  }
+  localStorage.setItem('lift_claude_api_key', val);
+  closeApiKeyModal();
+  updateAiKeyStatus();
+  alert('APIキーを保存しました。');
+}
+
+function updateAiKeyStatus() {
+  var btn = document.getElementById('ai-key-status-btn');
+  if (!btn) return;
+  var has = !!localStorage.getItem('lift_claude_api_key');
+  btn.className = 'ai-key-btn' + (has ? ' set' : '');
+  btn.textContent = has ? '✅ APIキー設定済み' : '⚙️ APIキー設定';
+}
+
+function setAiStep(n, state) {
+  for (var i = 1; i <= 4; i++) {
+    var el = document.getElementById('ai-step-' + i);
+    if (!el) continue;
+    el.className = 'ai-step' + (i === n ? ' ' + state : (i < n ? ' done' : ''));
+    var ico = el.querySelector('.ai-step-ico');
+    if (i === n && state === 'active') ico.innerHTML = '<span class="ai-spin">⏳</span>';
+    if (i === n && state === 'done') ico.innerHTML = '✅';
+    if (i === n && state === 'error') ico.innerHTML = '❌';
+    if (i < n) el.querySelector('.ai-step-ico').innerHTML = '✅';
+  }
+}
+
+async function callClaude(apiKey, system, messages) {
+  var res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'content-type': 'application/json',
+      'anthropic-dangerous-direct-browser-ipc': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 3000,
+      system: system,
+      messages: messages
+    })
+  });
+  if (!res.ok) {
+    var err = await res.json().catch(function(){ return {}; });
+    throw new Error((err.error && err.error.message) || 'APIエラー: ' + res.status);
+  }
+  var data = await res.json();
+  return data.content[0].text;
+}
+
+async function runAiGeneration() {
+  var apiKey = localStorage.getItem('lift_claude_api_key');
+  if (!apiKey) {
+    openApiKeyModal();
+    return;
+  }
+
+  var genBtn = document.getElementById('ai-gen-btn');
+  genBtn.classList.add('running');
+  genBtn.textContent = '⏳ 生成中...';
+  document.getElementById('aiProgOverlay').classList.remove('hidden');
+
+  // ステップリセット
+  for (var i = 1; i <= 4; i++) {
+    var el = document.getElementById('ai-step-' + i);
+    if (el) { el.className = 'ai-step'; }
+  }
+  // ステップ1アイコン修正
+  document.getElementById('ai-step-1').querySelector('.ai-step-ico').textContent = '🔍';
+  document.getElementById('ai-step-2').querySelector('.ai-step-ico').textContent = '🧐';
+  document.getElementById('ai-step-3').querySelector('.ai-step-ico').textContent = '✏️';
+  document.getElementById('ai-step-4').querySelector('.ai-step-ico').textContent = '📦';
+
+  try {
+    // === Agent 1: リサーチャー ===
+    setAiStep(1, 'active');
+    var sys1 = 'あなたは美容サロン（脱毛・エステ・フェイシャル）の市場調査専門コンサルタントです。日本市場に特化した具体的・実践的な情報を提供します。';
+    var prompt1 = `Liftという美容サロンの市場調査を実施してください。以下の5項目を詳しく調査・分析してください。
+
+1. 競合サロン情報（3〜5件）：サロン名、エリア、価格帯、強み、弱み、差別化ポイント
+2. 導入候補マシン（2〜3件）：マシン名、主な効果、費用感、おすすめ度（5段階）、導入メモ
+3. 顧客ニーズトレンド：
+   - 年代別ニーズ（20代・30代・40代）
+   - SNSトレンドハッシュタグ（3〜5個）
+   - 最近のニーズトレンド（3件）
+4. 業界トレンド（3〜5件）：トレンド名、詳細説明、注目度（rising/stable/declining）
+5. 今やるべき施策（3件）：施策タイトル、詳細説明、優先度（A/B/C）、具体的アクション3つ
+
+できるだけ具体的な情報を提供してください。`;
+
+    var res1 = await callClaude(apiKey, sys1, [{role:'user', content: prompt1}]);
+    setAiStep(1, 'done');
+
+    // === Agent 2: 批評家 ===
+    setAiStep(2, 'active');
+    var sys2 = 'あなたは美容サロン経営の厳しい批評家です。市場調査の欠点・抜け漏れ・改善点を鋭く指摘します。';
+    var prompt2 = `以下の市場調査を批評してください。具体的に：
+- 情報が薄い・曖昧な点
+- 実用性が低い点
+- 抜け漏れている重要情報
+- より精度を高めるための改善提案
+
+【調査内容】
+${res1}`;
+
+    var res2 = await callClaude(apiKey, sys2, [{role:'user', content: prompt2}]);
+    setAiStep(2, 'done');
+
+    // === Agent 1 (改善版): 批評を反映 ===
+    setAiStep(3, 'active');
+    var prompt3 = `批評を踏まえて、より具体的・実践的な市場調査に改善してください。
+
+【元の調査】
+${res1}
+
+【批評・改善点】
+${res2}
+
+改善版を同じ5項目（競合情報・導入マシン・顧客ニーズ・業界トレンド・施策）の形式で出力してください。`;
+
+    var res3 = await callClaude(apiKey, sys1, [{role:'user', content: prompt3}]);
+    setAiStep(3, 'done');
+
+    // === Agent 3: フォーマッター ===
+    setAiStep(4, 'active');
+    var sys4 = 'あなたはJSONフォーマッターです。与えられたテキストを指定のJSON形式に変換します。JSONのみを出力し、説明文は一切含めないでください。';
+    var jsonFormat = `{
+  "competitor": [{"id":1,"name":"サロン名","area":"エリア","price":"価格帯","strength":"強み","weakness":"弱み","memo":"メモ"}],
+  "machine": [{"id":1,"name":"マシン名","effect":"効果","cost":"費用感","recommend":4,"memo":"メモ"}],
+  "needs": {
+    "age": [{"label":"20代","text":"ニーズ内容"}],
+    "sns": [{"tag":"#タグ名","heat":"hot"}],
+    "trend": [{"title":"タイトル","desc":"説明"}]
+  },
+  "industry": [{"id":1,"title":"タイトル","desc":"説明","badge":"rising"}],
+  "plan": [{"id":1,"title":"施策タイトル","desc":"説明","priority":"A","actions":["アクション1","アクション2","アクション3"]}]
+}`;
+
+    var prompt4 = `以下の市場調査を下記のJSON形式に変換してください。JSONのみ出力してください。
+
+【変換するテキスト】
+${res3}
+
+【JSON形式】
+${jsonFormat}
+
+注意：
+- idは1から連番
+- recommend は1〜5の整数
+- badge は "rising"/"stable"/"declining" のいずれか
+- heat は "hot"/"warm"/"cool" のいずれか
+- priority は "A"/"B"/"C" のいずれか
+- JSONのみ出力（コードブロック不要）`;
+
+    var res4 = await callClaude(apiKey, sys4, [{role:'user', content: prompt4}]);
+    setAiStep(4, 'done');
+
+    // JSONパース＆適用
+    var jsonStr = res4.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim();
+    var generated;
+    try {
+      generated = JSON.parse(jsonStr);
+    } catch(e) {
+      throw new Error('JSON変換に失敗しました。もう一度お試しください。');
+    }
+
+    // LocalStorageに保存
+    if (generated.competitor) mktSaveData('competitor', generated.competitor);
+    if (generated.machine) mktSaveData('machine', generated.machine);
+    if (generated.plan) mktSaveData('plan', generated.plan);
+    if (generated.industry) {
+      localStorage.setItem(MKT_KEYS.industry, JSON.stringify(generated.industry));
+      localStorage.setItem(MKT_KEYS.industry + '_updated', new Date().toISOString());
+    }
+    if (generated.needs) {
+      localStorage.setItem(MKT_KEYS.needs, JSON.stringify(generated.needs));
+      localStorage.setItem(MKT_KEYS.needs + '_updated', new Date().toISOString());
+    }
+
+    // 画面反映
+    buildMarketResearch();
+
+    setTimeout(function() {
+      document.getElementById('aiProgOverlay').classList.add('hidden');
+      genBtn.classList.remove('running');
+      genBtn.textContent = '✨ AIで市場調査を自動生成（マルチエージェント）';
+      alert('AI市場調査の生成が完了しました！各タブで内容を確認してください。');
+    }, 800);
+
+  } catch(e) {
+    setAiStep(0, 'error');
+    document.getElementById('aiProgOverlay').classList.add('hidden');
+    genBtn.classList.remove('running');
+    genBtn.textContent = '✨ AIで市場調査を自動生成（マルチエージェント）';
+    alert('エラーが発生しました：' + e.message);
+  }
 }
 
 
