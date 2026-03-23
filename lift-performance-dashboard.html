@@ -6,7 +6,21 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>Lift 経営OS v4</title>
+  <title>Lift 経営OS v5</title>
+  <script>
+  // キャッシュバイパス: ブラウザの古いキャッシュを強制的にクリア
+  (function(){
+    var V = 'v5';
+    var k = '_liftBuild';
+    if (localStorage.getItem(k) !== V) {
+      localStorage.setItem(k, V);
+      if (location.search.indexOf('_v=') < 0) {
+        var sep = location.search ? '&' : '?';
+        location.replace(location.pathname + location.search + sep + '_v=' + V);
+      }
+    }
+  })();
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -300,7 +314,7 @@
 
     /* ===== PIN ロック画面 ===== */
     #pin-lock{position:fixed;inset:0;z-index:998;display:flex;align-items:center;justify-content:center;background:rgba(250,247,245,.90);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transition:opacity .4s;padding:20px}
-    #pin-lock.hidden{opacity:0;pointer-events:none}
+    #pin-lock.hidden{opacity:0;pointer-events:none;display:none}
     .pin-inner{display:flex;flex-direction:column;align-items:center;width:100%;max-width:320px}
     .pin-logo{width:72px;height:72px;background:var(--g-rose);border-radius:22px;display:flex;align-items:center;justify-content:center;box-shadow:var(--sh-r);margin-bottom:16px;animation:ldpulse 2s ease-in-out infinite}
     .pin-logo span{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:600;color:#fff}
