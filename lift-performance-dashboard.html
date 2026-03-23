@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>Lift 経営OS</title>
+  <title>Lift 経営OS v4</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -694,7 +694,8 @@
 
 <div class="err-banner" id="errBanner">
   <strong>⚠ データ取得エラー</strong>
-  <span id="errMsg">Apps Scriptを確認してください。</span>
+  <span id="errMsg">スプレッドシートのデータを取得できませんでした。</span>
+  <span style="font-size:10px;display:block;margin-top:4px;opacity:.7">市場調査タブは引き続き使用できます</span>
 </div>
 
 <div class="header">
@@ -1224,7 +1225,10 @@
     <!-- AI進捗モーダル -->
     <div class="ai-prog-overlay hidden" id="aiProgOverlay">
       <div class="ai-prog-box">
-        <div class="ai-prog-title">✨ AI市場調査を生成中...</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <div class="ai-prog-title" style="margin-bottom:0">✨ AI市場調査を生成中...</div>
+          <button onclick="document.getElementById('aiProgOverlay').classList.add('hidden');document.getElementById('ai-gen-btn').classList.remove('running');document.getElementById('ai-gen-btn').textContent='✨ AIで市場調査を自動生成（マルチエージェント）'" style="background:none;border:none;font-size:18px;cursor:pointer;color:var(--text3)">✕</button>
+        </div>
         <div class="ai-prog-sub">3つのAIエージェントが壁打ちして精度を高めています</div>
         <div class="ai-step-list">
           <div class="ai-step" id="ai-step-1"><span class="ai-step-ico">🔍</span><div class="ai-step-txt"><b>Agent 1 リサーチャー</b><br>競合・トレンド・ニーズを調査中</div></div>
@@ -2746,7 +2750,7 @@ async function loadData(){
     var staffRows=data.staff||[];
 
     if(storeRows.length===0&&kpiRows.length===0&&staffRows.length===0){
-      throw new Error('データが空です。Apps Scriptを再デプロイしてください。');
+      throw new Error('スプレッドシートのデータを取得できませんでした。シートIDや公開設定を確認してください。');
     }
 
     var stores=parseStore(storeRows);
@@ -3866,6 +3870,13 @@ function deleteMktLink(id) {
 
 
 initPinLock();
+
+// ページ完全ロード後に市場調査を再レンダリング（確実な表示のためのバックアップ）
+window.addEventListener('load', function() {
+  if (sessionStorage.getItem('lift_unlocked') === '1') {
+    try { buildMarketResearch(); } catch(e) { console.error('window.load buildMarketResearch:', e); }
+  }
+});
 
 function toggleQA(el){var a=el.nextElementSibling;a.classList.toggle('open');}
 function toggleQuiz(el) {
