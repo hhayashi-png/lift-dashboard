@@ -573,6 +573,60 @@
   .ai-key-input:focus{border-color:var(--lav)}
   .ai-key-save-btn{width:100%;padding:13px;background:linear-gradient(135deg,#6C3EBB,#9B59D4);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:8px}
   .ai-key-cancel-btn{width:100%;padding:10px;background:none;border:1px solid var(--border);border-radius:12px;font-size:13px;color:var(--text3);cursor:pointer}
+
+  /* ===== リンク分析 ===== */
+  .link-input-section{margin-bottom:14px}
+  .link-input-row{display:flex;gap:8px;margin-top:8px}
+  .link-url-input{flex:1;padding:11px 14px;border:1.5px solid var(--border);border-radius:12px;font-size:12px;outline:none;background:#fff;min-width:0}
+  .link-url-input:focus{border-color:var(--lav)}
+  .link-add-btn{padding:11px 16px;background:linear-gradient(135deg,#6C3EBB,#9B59D4);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+  .link-add-btn:active{opacity:.85}
+  .link-add-status{font-size:11px;margin-top:6px;padding:0 2px;min-height:16px}
+  .link-add-status.error{color:#C04060}
+  .link-add-status.success{color:var(--mint)}
+
+  .link-summary-box{background:linear-gradient(135deg,var(--lav-p),#fff);border:1px solid rgba(139,107,196,.2);border-radius:16px;padding:14px 16px;margin-bottom:14px}
+  .link-summary-hd{font-size:11px;font-weight:700;color:var(--lav);letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px}
+  .link-summary-text{font-size:12px;color:var(--text);line-height:1.7;margin-bottom:12px}
+  .link-top-trend{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(139,107,196,.12);font-size:12px;color:var(--text)}
+  .link-top-trend:last-child{border-bottom:none}
+  .link-rank{width:22px;height:22px;background:linear-gradient(135deg,#6C3EBB,#9B59D4);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+
+  .link-card{background:#fff;border-radius:16px;border:1px solid var(--border);margin-bottom:12px;overflow:hidden;box-shadow:var(--sh)}
+  .link-card-header{padding:12px 14px 10px;border-bottom:1px solid var(--border2);background:var(--bg2)}
+  .link-card-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;line-height:1.4}
+  .link-card-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .link-url-text{font-size:10px;color:var(--lav);text-decoration:none;word-break:break-all;flex:1}
+  .link-date{font-size:10px;color:var(--text4);white-space:nowrap}
+  .link-del-btn{background:none;border:none;color:var(--text4);font-size:10px;cursor:pointer;padding:2px 4px}
+  .link-del-btn:hover{color:#C04060}
+
+  .link-analyzing-msg{padding:18px 16px;text-align:center;color:var(--lav);font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px}
+  .link-error-msg{padding:10px 14px;color:#C04060;font-size:12px}
+  .link-retry-btn{margin:0 14px 12px;padding:7px 16px;background:none;border:1px solid var(--rose);color:var(--rose);border-radius:10px;font-size:12px;cursor:pointer}
+  .link-analyze-btn{display:block;width:calc(100% - 28px);margin:12px 14px;padding:12px;background:var(--lav-p);border:1.5px dashed var(--lav);border-radius:12px;color:var(--lav);font-size:13px;font-weight:600;cursor:pointer;text-align:center}
+
+  .link-analysis-body{padding:12px 14px 14px}
+  .link-section{margin-bottom:12px}
+  .link-section:last-child{margin-bottom:0}
+  .link-section-title{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px}
+  .link-section-text{font-size:12px;color:var(--text);line-height:1.75}
+  .link-tags{display:flex;flex-wrap:wrap;gap:4px}
+  .link-tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;background:var(--bg2);color:var(--text2)}
+  .link-tag.trend{background:var(--lav-p);color:var(--lav)}
+  .link-tag.need{background:var(--mint-p);color:var(--mint)}
+  .link-tag.latent{background:var(--gold-p);color:var(--gold)}
+  .link-needs-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px}
+  .link-needs-lbl{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap;margin-top:2px}
+  .link-needs-lbl.visible{background:var(--mint-p);color:var(--mint)}
+  .link-needs-lbl.latent{background:var(--gold-p);color:var(--gold)}
+  .link-hypothesis{background:linear-gradient(135deg,var(--gold-p),#FFFEF8);border-radius:12px;padding:11px 12px}
+  .link-hypothesis-text{font-size:12px;color:var(--text);line-height:1.75}
+  .link-action-item{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--border2);font-size:12px;color:var(--text);line-height:1.5}
+  .link-action-item:last-child{border-bottom:none}
+  .link-action-num{min-width:20px;height:20px;background:var(--g-rose);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
+  .link-empty{padding:28px 16px;text-align:center;color:var(--text3);font-size:12px;line-height:1.8}
+  .link-impact{font-size:12px;color:var(--text);line-height:1.7;background:var(--coral-p);border-radius:10px;padding:10px 12px}
   </style>
 </head>
 <body>
@@ -1202,6 +1256,7 @@
       <button class="mkt-stab" onclick="mktTab('do',this)">✅ D｜実行</button>
       <button class="mkt-stab" onclick="mktTab('check',this)">📊 C｜振り返り</button>
       <button class="mkt-stab" onclick="mktTab('action',this)">🔄 A｜次のアクション</button>
+      <button class="mkt-stab" onclick="mktTab('links',this)">🔗 リンク分析</button>
     </div>
 
     <!-- P: 計画 -->
@@ -1293,6 +1348,30 @@
       <div class="sec-label"><span class="dot"></span>継続 / 改善 / 中止の判断</div>
       <div id="mkt-action-list"></div>
       <button class="mkt-add-btn" onclick="openMktModal('action_item')">＋ アクションを追加</button>
+    </div>
+
+    <!-- リンク分析 -->
+    <div class="mkt-subpanel" id="mkt-links">
+      <div class="link-input-section">
+        <div class="sec-label"><span class="dot"></span>URLを追加して市場調査を自動生成</div>
+        <div class="link-input-row">
+          <input id="mkt-link-url" type="url" class="link-url-input" placeholder="https://記事・レポートのURLを貼り付け...">
+          <button class="link-add-btn" onclick="addMktLink()">＋ 追加</button>
+        </div>
+        <div id="link-add-status" class="link-add-status"></div>
+      </div>
+
+      <div id="link-summary-section" style="display:none">
+        <div class="link-summary-box">
+          <div class="link-summary-hd">📊 今週の市場サマリー</div>
+          <div id="link-summary-content"></div>
+          <div class="link-summary-hd" style="margin-top:12px">🔥 トレンドTOP3</div>
+          <div id="link-trends-top3"></div>
+        </div>
+      </div>
+
+      <div class="sec-label"><span class="dot"></span>登録済みリンク一覧</div>
+      <div id="mkt-links-list"></div>
     </div>
   </div>
 
@@ -2924,6 +3003,7 @@ function buildMarketResearch() {
   try { renderMktCheck(); } catch(e) { console.error('renderMktCheck:', e); }
   try { renderMktActionItems(); } catch(e) { console.error('renderMktActionItems:', e); }
   try { renderMktHero(); } catch(e) { console.error('renderMktHero:', e); }
+  try { renderMktLinks(); } catch(e) { console.error('renderMktLinks:', e); }
   updateAiKeyStatus();
 }
 
@@ -3502,6 +3582,286 @@ ${jsonFormat}
     genBtn.textContent = '✨ AIで市場調査を自動生成（マルチエージェント）';
     alert('エラーが発生しました：' + e.message);
   }
+}
+
+
+// ===== リンク分析機能 =====
+var LINKS_KEY = 'mkt_links_db';
+
+function getLinksDb() {
+  try { var d = localStorage.getItem(LINKS_KEY); return d ? JSON.parse(d) : []; }
+  catch(e) { return []; }
+}
+
+function saveLinksDb(links) {
+  try { localStorage.setItem(LINKS_KEY, JSON.stringify(links)); }
+  catch(e) { console.error('LinksDB保存エラー:', e); }
+}
+
+function renderMktLinks() {
+  var links = getLinksDb();
+  var listEl = document.getElementById('mkt-links-list');
+  if (!listEl) return;
+
+  // サマリーセクション
+  var analyzed = links.filter(function(l){ return l.status === 'done' && l.analysis; });
+  renderLinkSummary(analyzed);
+
+  if (links.length === 0) {
+    listEl.innerHTML = '<div class="link-empty">URLを追加すると、AIが記事内容を分析して<br>市場トレンド・ニーズ・具体アクションを自動生成します。<br><br>📌 矢野経済研究所・日経・業界誌などのURLを貼り付けてみてください。</div>';
+    return;
+  }
+
+  var sorted = links.slice().sort(function(a,b){ return new Date(b.addedAt) - new Date(a.addedAt); });
+  listEl.innerHTML = sorted.map(function(l){ return renderLinkCardHtml(l); }).join('');
+}
+
+function renderLinkSummary(analyzed) {
+  var sec = document.getElementById('link-summary-section');
+  if (!sec) return;
+  if (analyzed.length === 0) { sec.style.display = 'none'; return; }
+  sec.style.display = 'block';
+
+  // 全トレンドを収集
+  var allTrends = [];
+  var allActions = [];
+  var summaryParts = [];
+  analyzed.forEach(function(l) {
+    if (l.analysis.trends) allTrends = allTrends.concat(l.analysis.trends);
+    if (l.analysis.salon_actions) allActions = allActions.concat(l.analysis.salon_actions.slice(0,1));
+    if (l.analysis.summary) summaryParts.push(l.analysis.summary);
+  });
+
+  // サマリー本文
+  var sc = document.getElementById('link-summary-content');
+  if (sc) {
+    var txt = analyzed.length + '件の記事を分析済み。';
+    if (analyzed.length >= 2) {
+      txt += '主な注目分野：' + allTrends.slice(0,4).map(function(t){ return escH(t); }).join('、') + '。';
+    } else if (summaryParts.length > 0) {
+      txt += summaryParts[0].substring(0, 80) + '…';
+    }
+    sc.innerHTML = '<div class="link-summary-text">' + txt + '</div>';
+  }
+
+  // トレンドTOP3（重複除去）
+  var t3 = document.getElementById('link-trends-top3');
+  if (t3) {
+    var unique = [];
+    allTrends.forEach(function(t){ if (unique.indexOf(t) === -1) unique.push(t); });
+    t3.innerHTML = unique.slice(0,3).map(function(t,i){
+      return '<div class="link-top-trend"><span class="link-rank">' + (i+1) + '</span><span>' + escH(t) + '</span></div>';
+    }).join('');
+  }
+}
+
+function renderLinkCardHtml(link) {
+  var dateStr = new Date(link.addedAt).toLocaleDateString('ja-JP');
+  var shortUrl = link.url.length > 55 ? link.url.substring(0,55) + '...' : link.url;
+  var bodyHtml = '';
+
+  if (link.status === 'analyzing') {
+    bodyHtml = '<div class="link-analyzing-msg"><span class="ai-spin">⏳</span><span>' + escH(link.progress || '分析中...') + '</span></div>';
+  } else if (link.status === 'error') {
+    bodyHtml = '<div class="link-error-msg">⚠️ ' + escH(link.error || '分析に失敗しました') + '</div>'
+      + '<button class="link-retry-btn" onclick="analyzeMktLink(' + link.id + ')">再試行</button>';
+  } else if (link.status === 'done' && link.analysis) {
+    var a = link.analysis;
+    bodyHtml = '<div class="link-analysis-body">';
+
+    if (a.summary) bodyHtml += '<div class="link-section">'
+      + '<div class="link-section-title">📝 要約</div>'
+      + '<div class="link-section-text">' + escH(a.summary) + '</div></div>';
+
+    if (a.trends && a.trends.length) bodyHtml += '<div class="link-section">'
+      + '<div class="link-section-title">📈 市場トレンド</div>'
+      + '<div class="link-tags">' + a.trends.map(function(t){ return '<span class="link-tag trend">' + escH(t) + '</span>'; }).join('') + '</div></div>';
+
+    if ((a.needs_visible && a.needs_visible.length) || (a.needs_latent && a.needs_latent.length)) {
+      bodyHtml += '<div class="link-section"><div class="link-section-title">💭 ユーザーニーズ</div>';
+      if (a.needs_visible && a.needs_visible.length) bodyHtml += '<div class="link-needs-row"><span class="link-needs-lbl visible">顕在</span><div class="link-tags">'
+        + a.needs_visible.map(function(n){ return '<span class="link-tag need">' + escH(n) + '</span>'; }).join('') + '</div></div>';
+      if (a.needs_latent && a.needs_latent.length) bodyHtml += '<div class="link-needs-row"><span class="link-needs-lbl latent">潜在</span><div class="link-tags">'
+        + a.needs_latent.map(function(n){ return '<span class="link-tag latent">' + escH(n) + '</span>'; }).join('') + '</div></div>';
+      bodyHtml += '</div>';
+    }
+
+    if (a.industry_impact) bodyHtml += '<div class="link-section">'
+      + '<div class="link-section-title">🏭 業界への影響</div>'
+      + '<div class="link-impact">' + escH(a.industry_impact) + '</div></div>';
+
+    if (a.next_hypothesis) bodyHtml += '<div class="link-section">'
+      + '<div class="link-section-title">🔮 次に流行る仮説</div>'
+      + '<div class="link-hypothesis"><div class="link-hypothesis-text">' + escH(a.next_hypothesis) + '</div></div></div>';
+
+    if (a.salon_actions && a.salon_actions.length) {
+      bodyHtml += '<div class="link-section"><div class="link-section-title">✅ サロンでの具体アクション</div>';
+      a.salon_actions.forEach(function(ac, i){
+        bodyHtml += '<div class="link-action-item"><span class="link-action-num">' + (i+1) + '</span><span>' + escH(ac) + '</span></div>';
+      });
+      bodyHtml += '</div>';
+    }
+    bodyHtml += '</div>';
+  } else {
+    bodyHtml = '<button class="link-analyze-btn" onclick="analyzeMktLink(' + link.id + ')">🔍 分析開始（Claude AIで解析）</button>';
+  }
+
+  return '<div class="link-card" id="link-card-' + link.id + '">'
+    + '<div class="link-card-header">'
+    + '<div class="link-card-title">' + escH(link.title || link.url) + '</div>'
+    + '<div class="link-card-meta">'
+    + '<a href="' + escH(link.url) + '" target="_blank" class="link-url-text">' + escH(shortUrl) + '</a>'
+    + '<span class="link-date">' + dateStr + '</span>'
+    + '<button class="link-del-btn" onclick="deleteMktLink(' + link.id + ')">✕</button>'
+    + '</div></div>'
+    + bodyHtml
+    + '</div>';
+}
+
+async function addMktLink() {
+  var input = document.getElementById('mkt-link-url');
+  var statusEl = document.getElementById('link-add-status');
+  var url = input ? input.value.trim() : '';
+
+  if (!url) {
+    if (statusEl) { statusEl.textContent = 'URLを入力してください'; statusEl.className = 'link-add-status error'; }
+    return;
+  }
+  if (!url.match(/^https?:\/\//i)) {
+    if (statusEl) { statusEl.textContent = 'http または https から始まるURLを入力してください'; statusEl.className = 'link-add-status error'; }
+    return;
+  }
+
+  var links = getLinksDb();
+  if (links.find(function(l){ return l.url === url; })) {
+    if (statusEl) { statusEl.textContent = 'このURLはすでに登録済みです'; statusEl.className = 'link-add-status error'; }
+    return;
+  }
+
+  var newLink = { id: Date.now(), url: url, title: url, addedAt: new Date().toISOString(), status: 'pending', analysis: null, error: null, progress: null };
+  links.push(newLink);
+  saveLinksDb(links);
+  if (input) input.value = '';
+  if (statusEl) { statusEl.textContent = '追加しました。分析を開始します...'; statusEl.className = 'link-add-status success'; }
+
+  renderMktLinks();
+  await analyzeMktLink(newLink.id);
+}
+
+function updateLinkProgress(id, msg) {
+  var links = getLinksDb();
+  var link = links.find(function(l){ return l.id === id; });
+  if (link) { link.progress = msg; saveLinksDb(links); }
+  var card = document.getElementById('link-card-' + id);
+  if (card) {
+    var msg_el = card.querySelector('.link-analyzing-msg span:last-child');
+    if (msg_el) msg_el.textContent = msg;
+  }
+}
+
+async function analyzeMktLink(id) {
+  var apiKey = localStorage.getItem('lift_claude_api_key');
+  if (!apiKey) { openApiKeyModal(); return; }
+
+  var links = getLinksDb();
+  var link = links.find(function(l){ return l.id === id; });
+  if (!link) return;
+
+  link.status = 'analyzing';
+  link.progress = 'URLのコンテンツを取得中...';
+  link.error = null;
+  saveLinksDb(links);
+  renderMktLinks();
+
+  try {
+    // URLコンテンツ取得
+    updateLinkProgress(id, 'URLのコンテンツを取得中...');
+    var content = await fetchUrlContent(link.url);
+
+    updateLinkProgress(id, 'Claude AIで市場分析中...');
+    var analysis = await analyzeUrlWithClaude(apiKey, link.url, content);
+
+    links = getLinksDb();
+    link = links.find(function(l){ return l.id === id; });
+    if (link) {
+      link.status = 'done';
+      link.title = analysis.title || link.url;
+      link.analysis = analysis;
+      link.analysis.analyzed_at = new Date().toISOString();
+      saveLinksDb(links);
+    }
+  } catch(e) {
+    links = getLinksDb();
+    link = links.find(function(l){ return l.id === id; });
+    if (link) { link.status = 'error'; link.error = e.message; saveLinksDb(links); }
+  }
+
+  renderMktLinks();
+}
+
+async function fetchUrlContent(url) {
+  // CORS proxyでHTML取得
+  var proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(url);
+  var resp;
+  try {
+    resp = await fetch(proxyUrl);
+  } catch(e) {
+    // フォールバック: allorigins
+    var fallback = 'https://api.allorigins.win/get?url=' + encodeURIComponent(url);
+    var r2 = await fetch(fallback);
+    var data = await r2.json();
+    return extractTextFromHtml(data.contents || '');
+  }
+  if (!resp.ok) throw new Error('URLの取得に失敗しました（' + resp.status + '）');
+  var html = await resp.text();
+  return extractTextFromHtml(html);
+}
+
+function extractTextFromHtml(html) {
+  try {
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(html, 'text/html');
+    ['script','style','nav','header','footer','aside','noscript'].forEach(function(tag){
+      doc.querySelectorAll(tag).forEach(function(el){ el.remove(); });
+    });
+    var main = doc.querySelector('main, article, .main-content, .entry-content, .post-content, #content, #main, .content') || doc.body;
+    var text = (main ? main.textContent : doc.body.textContent) || '';
+    return text.replace(/\s+/g,' ').trim().substring(0, 6000);
+  } catch(e) { return html.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim().substring(0,4000); }
+}
+
+async function analyzeUrlWithClaude(apiKey, url, content) {
+  var system = 'あなたは日本の美容業界（脱毛・エステ・フェイシャルサロン）専門の市場調査アナリストです。提供された記事・レポートを分析し、サロン経営者が意思決定に即使える実践的なインサイトをJSONで出力します。JSONのみ出力してください。抽象論ではなく実務レベルの具体性を徹底してください。';
+
+  var fmt = '{"title":"記事タイトル（25字以内）","summary":"要約（数値・具体事実を含む150字以内）","trends":["具体的な市場トレンド1","トレンド2","トレンド3"],"needs_visible":["顕在ニーズ1（具体的）","顕在ニーズ2"],"needs_latent":["潜在ニーズ1（具体的）","潜在ニーズ2"],"industry_impact":"美容サロン業界への具体的な影響（100字以内）","next_hypothesis":"この記事から導かれる次に流行る仮説（具体的・実務的・50〜100字）","salon_actions":["今すぐ実行できる具体アクション1","アクション2","アクション3"],"keywords":["キーワード1","キーワード2","キーワード3"]}';
+
+  var prompt = 'URL: ' + url + '\n\n記事内容:\n' + content + '\n\n上記を分析して以下のJSON形式で出力（JSONのみ、説明不要）:\n' + fmt;
+
+  var resp = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'content-type': 'application/json',
+      'anthropic-dangerous-direct-browser-ipc': 'true'
+    },
+    body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 2000, system: system, messages: [{ role: 'user', content: prompt }] })
+  });
+
+  if (!resp.ok) {
+    var err = await resp.json().catch(function(){ return {}; });
+    throw new Error((err.error && err.error.message) || 'Claude API エラー ' + resp.status);
+  }
+  var data = await resp.json();
+  var text = data.content[0].text.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim();
+  return JSON.parse(text);
+}
+
+function deleteMktLink(id) {
+  if (!confirm('このリンクを削除しますか？')) return;
+  var links = getLinksDb().filter(function(l){ return l.id !== id; });
+  saveLinksDb(links);
+  renderMktLinks();
 }
 
 
