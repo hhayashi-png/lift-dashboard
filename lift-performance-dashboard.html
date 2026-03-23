@@ -1530,6 +1530,9 @@ function go(name, btn) {
   if(btn) btn.classList.add('active');
   window.scrollTo(0,0);
   staggerCards('tab-'+name);
+  if (name === 'action') {
+    try { buildMarketResearch(); } catch(e) { console.error('市場調査レンダリングエラー:', e); }
+  }
 }
 
 // ===== Googleスプレッドシート gviz JSONP取得 =====
@@ -2895,19 +2898,32 @@ function mktInitData(key) {
   mktSaveData(key, MKT_DEFAULTS[key]);
 }
 
+function safeSet(id, html) {
+  var el = document.getElementById(id);
+  if (el) el.innerHTML = html;
+}
+function safeText(id, txt) {
+  var el = document.getElementById(id);
+  if (el) el.textContent = txt;
+}
+function safeLastSpan(id, txt) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var span = el.querySelector('span:last-child');
+  if (span) span.textContent = txt;
+}
+
 function buildMarketResearch() {
   ['plan','competitor','machine','do','check','action_item'].forEach(function(k){ mktInitData(k); });
-
-  // needs/industryは固定表示のため特別処理
-  renderMktPlan();
-  renderMktCompetitor();
-  renderMktMachine();
-  renderMktNeeds();
-  renderMktIndustry();
-  renderMktDo();
-  renderMktCheck();
-  renderMktActionItems();
-  renderMktHero();
+  try { renderMktPlan(); } catch(e) { console.error('renderMktPlan:', e); }
+  try { renderMktCompetitor(); } catch(e) { console.error('renderMktCompetitor:', e); }
+  try { renderMktMachine(); } catch(e) { console.error('renderMktMachine:', e); }
+  try { renderMktNeeds(); } catch(e) { console.error('renderMktNeeds:', e); }
+  try { renderMktIndustry(); } catch(e) { console.error('renderMktIndustry:', e); }
+  try { renderMktDo(); } catch(e) { console.error('renderMktDo:', e); }
+  try { renderMktCheck(); } catch(e) { console.error('renderMktCheck:', e); }
+  try { renderMktActionItems(); } catch(e) { console.error('renderMktActionItems:', e); }
+  try { renderMktHero(); } catch(e) { console.error('renderMktHero:', e); }
   updateAiKeyStatus();
 }
 
@@ -2922,22 +2938,22 @@ function renderMktHero() {
   var plan = mktGetData('plan') || MKT_DEFAULTS.plan;
   var now = new Date();
   var dateStr = now.getFullYear() + '年' + (now.getMonth()+1) + '月' + now.getDate() + '日 更新';
-  document.getElementById('mkt-hero-updated').textContent = dateStr;
-  document.getElementById('mkt-hero-title').textContent = '今週の市場調査サマリー';
+  safeText('mkt-hero-updated', dateStr);
+  safeText('mkt-hero-title', '今週の市場調査サマリー');
   var pts = '';
-  if (plan.length > 0) pts += '<div class="mkt-hl-item"><span class="mkt-hl-badge">P</span><span>今やるべき施策: <b>' + plan[0].title + '</b>（優先度' + plan[0].priority + '）</span></div>';
+  if (plan.length > 0) pts += '<div class="mkt-hl-item"><span class="mkt-hl-badge">P</span><span>今やるべき施策: <b>' + escH(plan[0].title) + '</b>（優先度' + plan[0].priority + '）</span></div>';
   var comp = mktGetData('competitor') || MKT_DEFAULTS.competitor;
   pts += '<div class="mkt-hl-item"><span class="mkt-hl-badge">🏪</span><span>競合サロン登録数: <b>' + comp.length + '件</b>　最新確認: 本日</span></div>';
   var doList = mktGetData('do') || MKT_DEFAULTS.do;
   var doing = doList.filter(function(d){return d.status==='doing';}).length;
   pts += '<div class="mkt-hl-item"><span class="mkt-hl-badge">✅</span><span>実行中タスク: <b>' + doing + '件</b>　今週の目標を確認してください</span></div>';
-  document.getElementById('mkt-hero-points').innerHTML = pts;
+  safeSet('mkt-hero-points', pts);
 }
 
 // ===== Plan =====
 function renderMktPlan() {
   var data = mktGetData('plan') || MKT_DEFAULTS.plan;
-  document.getElementById('mkt-plan-updated').querySelector('span:last-child').textContent = mktGetUpdated('plan');
+  safeLastSpan('mkt-plan-updated', mktGetUpdated('plan'));
   var html = '';
   data.forEach(function(item) {
     var cls = item.priority === 'A' ? 'a' : item.priority === 'B' ? 'b' : 'c';
@@ -2956,7 +2972,7 @@ function renderMktPlan() {
 // ===== Competitor =====
 function renderMktCompetitor() {
   var data = mktGetData('competitor') || MKT_DEFAULTS.competitor;
-  document.getElementById('mkt-comp-updated').querySelector('span:last-child').textContent = mktGetUpdated('competitor');
+  safeLastSpan('mkt-comp-updated', mktGetUpdated('competitor'));
   var html = '';
   data.forEach(function(item) {
     var badges = (item.media||'').split('・').map(function(m){
@@ -2979,7 +2995,7 @@ function renderMktCompetitor() {
 // ===== Machine =====
 function renderMktMachine() {
   var data = mktGetData('machine') || MKT_DEFAULTS.machine;
-  document.getElementById('mkt-machine-updated').querySelector('span:last-child').textContent = mktGetUpdated('machine');
+  safeLastSpan('mkt-machine-updated', mktGetUpdated('machine'));
   var html = '';
   data.forEach(function(item) {
     html += '<div class="machine-card">'
@@ -2995,7 +3011,7 @@ function renderMktMachine() {
 
 // ===== Needs =====
 function renderMktNeeds() {
-  document.getElementById('mkt-needs-updated').querySelector('span:last-child').textContent = '定期見直し推奨';
+  safeLastSpan('mkt-needs-updated', '定期見直し推奨');
   var age = MKT_DEFAULTS.needs.age;
   var ageHtml = '';
   age.forEach(function(a) {
@@ -3022,7 +3038,7 @@ function renderMktNeeds() {
 
 // ===== Industry =====
 function renderMktIndustry() {
-  document.getElementById('mkt-industry-updated').querySelector('span:last-child').textContent = '定期見直し推奨';
+  safeLastSpan('mkt-industry-updated', '定期見直し推奨');
   var html = '';
   MKT_DEFAULTS.industry.forEach(function(item) {
     html += '<div class="trend-item"><span class="trend-ico">' + item.ico + '</span><div class="trend-body">'
@@ -3037,7 +3053,7 @@ function renderMktIndustry() {
 // ===== Do =====
 function renderMktDo() {
   var data = mktGetData('do') || MKT_DEFAULTS.do;
-  document.getElementById('mkt-do-updated').querySelector('span:last-child').textContent = mktGetUpdated('do');
+  safeLastSpan('mkt-do-updated', mktGetUpdated('do'));
   var order = {doing:0, todo:1, done:2};
   data.sort(function(a,b){ return (order[a.status]||1)-(order[b.status]||1); });
   var html = '';
@@ -3056,7 +3072,7 @@ function renderMktDo() {
 // ===== Check =====
 function renderMktCheck() {
   var data = mktGetData('check') || MKT_DEFAULTS.check;
-  document.getElementById('mkt-check-updated').querySelector('span:last-child').textContent = mktGetUpdated('check');
+  safeLastSpan('mkt-check-updated', mktGetUpdated('check'));
   var html = '';
   data.forEach(function(item) {
     html += '<div class="check-item">'
@@ -3071,13 +3087,13 @@ function renderMktCheck() {
     if (item.issue) html += '<div class="check-pts issue" style="margin-top:6px">⚠️ <b>課題：</b>' + escH(item.issue) + '</div>';
     html += '</div>';
   });
-  document.getElementById('mkt-check-list').innerHTML = html || '<div class="empty"><p>振り返りを追加してください。</p></div>';
+  safeSet('mkt-check-list', html || '<div class="empty"><p>振り返りを追加してください。</p></div>');
 }
 
 // ===== Action Items =====
 function renderMktActionItems() {
   var data = mktGetData('action_item') || MKT_DEFAULTS.action_item;
-  document.getElementById('mkt-action-updated').querySelector('span:last-child').textContent = mktGetUpdated('action_item');
+  safeLastSpan('mkt-action-updated', mktGetUpdated('action_item'));
   var html = '';
   data.forEach(function(item) {
     var decLbl = item.decision==='continue'?'継続':item.decision==='improve'?'改善':'中止';
@@ -3088,7 +3104,7 @@ function renderMktActionItems() {
       + '<button class="mkt-edit-btn" onclick="openMktModal(\'action_item\',' + item.id + ')">編集</button>'
       + '</div>';
   });
-  document.getElementById('mkt-action-list').innerHTML = html || '<div class="empty"><p>アクションを追加してください。</p></div>';
+  safeSet('mkt-action-list', html || '<div class="empty"><p>アクションを追加してください。</p></div>');
 }
 
 function escH(s) {
