@@ -406,6 +406,138 @@
   .sa-alert-title{font-size:11px;font-weight:700;color:var(--gold);margin-bottom:5px;display:flex;align-items:center;gap:5px}
   .sa-chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:16px;box-shadow:var(--sh)}
 
+  /* ===== 市場調査タブ ===== */
+  .mkt-hero{background:linear-gradient(135deg,#1a3a5c,#0e4d8a);border-radius:var(--r);padding:18px 16px;margin-bottom:16px;color:#fff;position:relative;overflow:hidden;box-shadow:0 6px 24px rgba(14,77,138,.3)}
+  .mkt-hero::before{content:'🔍';position:absolute;right:14px;top:10px;font-size:44px;opacity:.15}
+  .mkt-hero-date{font-size:10px;color:rgba(255,255,255,.7);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;gap:6px}
+  .mkt-hero-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;line-height:1.4;margin-bottom:10px}
+  .mkt-highlights{display:flex;flex-direction:column;gap:6px}
+  .mkt-hl-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;line-height:1.5;color:rgba(255,255,255,.9)}
+  .mkt-hl-badge{flex-shrink:0;width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:10px;margin-top:1px}
+
+  /* PDCAサブタブ */
+  .mkt-subtabs{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+  .mkt-stab{flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;background:var(--surface);border:1.5px solid var(--border);color:var(--text3);cursor:pointer;transition:all .2s;white-space:nowrap}
+  .mkt-stab.active{background:linear-gradient(135deg,#1a3a5c,#0e4d8a);border-color:transparent;color:#fff}
+  .mkt-subpanel{display:none}.mkt-subpanel.active{display:block}
+
+  /* 競合テーブル */
+  .comp-tbl-wrap{overflow-x:auto;border-radius:var(--rs);border:1px solid var(--border);margin-bottom:14px;box-shadow:var(--sh)}
+  .comp-tbl{width:100%;border-collapse:collapse;font-size:11px;min-width:520px}
+  .comp-tbl th{background:#1a3a5c;color:rgba(255,255,255,.9);font-size:9px;font-weight:700;padding:8px 10px;text-align:left;letter-spacing:.5px;white-space:nowrap;border-bottom:none}
+  .comp-tbl td{padding:9px 10px;border-bottom:1px solid var(--border2);color:var(--text);vertical-align:top;line-height:1.5}
+  .comp-tbl tr:last-child td{border-bottom:none}
+  .comp-tbl tr:nth-child(even) td{background:var(--bg2)}
+  .comp-badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;white-space:nowrap}
+  .comp-badge.hpb{background:#FFECEE;color:#D4607A}
+  .comp-badge.ig{background:#FEF0F3;color:#E8609A}
+  .comp-badge.google{background:#E8F4FF;color:#1A73E8}
+  .comp-badge.web{background:#EDF5FE;color:#0e4d8a}
+
+  /* マシンカード */
+  .machine-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;box-shadow:var(--sh);border-left:4px solid var(--lav)}
+  .machine-card-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
+  .machine-name{font-size:14px;font-weight:700;color:var(--text)}
+  .machine-trend{font-size:9px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--lav-p);color:var(--lav);white-space:nowrap;flex-shrink:0}
+  .machine-row{display:flex;gap:6px;margin-bottom:6px;font-size:11px;line-height:1.6}
+  .machine-lbl{font-weight:700;color:var(--text3);min-width:56px;flex-shrink:0}
+  .machine-val{color:var(--text2)}
+  .machine-why{background:var(--lav-p);border-radius:var(--rx);padding:8px 10px;font-size:11px;color:var(--lav);line-height:1.6;margin-top:6px}
+
+  /* ニーズトレンドカード */
+  .needs-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;box-shadow:var(--sh)}
+  .needs-age-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+  .needs-age-item{background:var(--bg2);border-radius:var(--rx);padding:10px;font-size:11px}
+  .needs-age-lbl{font-weight:700;color:var(--rose);margin-bottom:4px;font-size:10px}
+  .needs-age-tags{display:flex;flex-wrap:wrap;gap:4px}
+  .needs-tag{font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;background:var(--rose-p);color:var(--rose);white-space:nowrap}
+  .needs-tag.gold{background:var(--gold-p);color:var(--gold)}
+  .needs-tag.mint{background:var(--mint-p);color:var(--mint)}
+  .needs-tag.lav{background:var(--lav-p);color:var(--lav)}
+  .trend-item{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--border2);align-items:flex-start}
+  .trend-item:last-child{border-bottom:none;padding-bottom:0}
+  .trend-ico{font-size:18px;flex-shrink:0;margin-top:1px}
+  .trend-body{flex:1}
+  .trend-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px}
+  .trend-desc{font-size:11px;color:var(--text2);line-height:1.6}
+  .trend-badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px;display:inline-block;margin-top:3px}
+  .trend-badge.hot{background:#FFF0F3;color:var(--rose)}
+  .trend-badge.rising{background:var(--gold-p);color:var(--gold)}
+  .trend-badge.steady{background:var(--mint-p);color:var(--mint)}
+
+  /* PDCA - Planセクション */
+  .plan-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;box-shadow:var(--sh)}
+  .plan-priority-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  .plan-priority-badge{font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;white-space:nowrap}
+  .plan-priority-badge.a{background:linear-gradient(135deg,#D4607A,#E88AA0);color:#fff}
+  .plan-priority-badge.b{background:linear-gradient(135deg,#C8923A,#E0B060);color:#fff}
+  .plan-priority-badge.c{background:linear-gradient(135deg,#4BAD8C,#70C8A8);color:#fff}
+  .plan-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:5px}
+  .plan-desc{font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:8px}
+  .plan-actions-list{font-size:11px;color:var(--text2)}
+  .plan-action-item{display:flex;gap:6px;margin-bottom:4px;line-height:1.5}
+  .plan-action-item::before{content:'▶';color:var(--rose);flex-shrink:0;font-size:10px;margin-top:2px}
+
+  /* PDCA - Doセクション */
+  .do-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;align-items:flex-start;gap:10px}
+  .do-status{flex-shrink:0;font-size:9px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;margin-top:2px}
+  .do-status.doing{background:var(--gold-p);color:var(--gold)}
+  .do-status.todo{background:var(--bg2);color:var(--text3)}
+  .do-status.done{background:var(--mint-p);color:var(--mint)}
+  .do-body{flex:1;min-width:0}
+  .do-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px}
+  .do-meta{font-size:10px;color:var(--text3);display:flex;gap:10px;flex-wrap:wrap}
+
+  /* PDCA - Checkセクション */
+  .check-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;box-shadow:var(--sh)}
+  .check-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+  .check-result-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+  .check-metric{background:var(--bg2);border-radius:var(--rx);padding:8px 10px;flex:1;min-width:80px;text-align:center}
+  .check-metric-lbl{font-size:9px;color:var(--text3);margin-bottom:3px}
+  .check-metric-val{font-size:14px;font-weight:700;color:var(--text)}
+  .check-metric-val.up{color:var(--mint)}
+  .check-metric-val.down{color:var(--rose)}
+  .check-pts{font-size:11px;color:var(--text2);line-height:1.7;padding:8px 10px;border-radius:var(--rx)}
+  .check-pts.good{background:var(--mint-p)}
+  .check-pts.issue{background:var(--rose-p)}
+
+  /* PDCA - Actionセクション */
+  .action-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;align-items:flex-start;gap:10px}
+  .action-decision{flex-shrink:0;font-size:9px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;margin-top:2px}
+  .action-decision.continue{background:var(--mint-p);color:var(--mint)}
+  .action-decision.improve{background:var(--gold-p);color:var(--gold)}
+  .action-decision.stop{background:var(--rose-p);color:var(--rose)}
+  .action-body{flex:1;min-width:0}
+  .action-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px}
+  .action-next{font-size:11px;color:var(--text2);line-height:1.5}
+
+  /* 追加・編集ボタン */
+  .mkt-add-btn{width:100%;padding:10px;border-radius:var(--rs);background:var(--bg2);border:1.5px dashed var(--border);color:var(--text3);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:16px}
+  .mkt-add-btn:active{background:var(--border)}
+  .mkt-edit-btn{font-size:10px;color:var(--text3);background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:3px 8px;cursor:pointer;flex-shrink:0}
+
+  /* モーダル */
+  .mkt-modal-overlay{position:fixed;inset:0;z-index:300;background:rgba(45,35,40,.5);backdrop-filter:blur(4px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+  .mkt-modal-overlay.open{opacity:1;pointer-events:all}
+  .mkt-modal{background:var(--surface);border-radius:24px 24px 0 0;width:100%;max-width:560px;max-height:85vh;overflow-y:auto;padding:0 0 env(safe-area-inset-bottom);transform:translateY(100%);transition:transform .35s cubic-bezier(.32,1,.6,1)}
+  .mkt-modal-overlay.open .mkt-modal{transform:translateY(0)}
+  .mkt-modal-pull{width:36px;height:4px;border-radius:4px;background:var(--border);margin:12px auto 0}
+  .mkt-modal-hd{padding:16px 18px 12px;border-bottom:1px solid var(--border);font-size:14px;font-weight:700;color:var(--text)}
+  .mkt-modal-body{padding:14px 18px 20px}
+  .mkt-field{margin-bottom:12px}
+  .mkt-field label{font-size:11px;font-weight:700;color:var(--text3);display:block;margin-bottom:5px;letter-spacing:.5px}
+  .mkt-field input,.mkt-field textarea,.mkt-field select{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--rx);font-size:12px;color:var(--text);background:var(--surface);font-family:'Noto Sans JP',sans-serif;outline:none;transition:border-color .2s}
+  .mkt-field input:focus,.mkt-field textarea:focus,.mkt-field select:focus{border-color:#1a3a5c}
+  .mkt-field textarea{resize:vertical;min-height:70px}
+  .mkt-modal-footer{display:flex;gap:8px;padding:0 18px 14px}
+  .mkt-modal-save{flex:1;padding:11px;background:linear-gradient(135deg,#1a3a5c,#0e4d8a);color:#fff;border:none;border-radius:var(--rs);font-size:13px;font-weight:700;cursor:pointer}
+  .mkt-modal-cancel{padding:11px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);font-size:13px;color:var(--text3);cursor:pointer}
+  .mkt-modal-del{padding:11px 14px;background:var(--rose-p);border:1px solid var(--rose-l);border-radius:var(--rs);font-size:12px;color:var(--rose);cursor:pointer}
+
+  /* 更新日時 */
+  .mkt-updated{font-size:10px;color:var(--text3);display:flex;align-items:center;gap:4px;margin-bottom:14px}
+  .mkt-updated-dot{width:6px;height:6px;border-radius:50%;background:var(--mint);flex-shrink:0}
+
   </style>
 </head>
 <body>
@@ -974,22 +1106,142 @@
     </div>
   </div>
 
-  <!-- アクション提案 -->
+  <!-- 市場調査 -->
   <div class="tab-panel" id="tab-action">
     <div class="pg-title">
       <div class="pg-title-row">
-        <h2>アクション<em>提案</em></h2>
-        <span class="t-badge">ACTION</span>
+        <h2>市場<em>調査</em></h2>
+        <span class="t-badge" style="background:linear-gradient(135deg,#1a3a5c,#0e4d8a)">MARKET</span>
       </div>
-      <p>データから導く「次の一手」</p>
+      <p>美容業界の動向把握・意思決定・実行管理</p>
     </div>
 
-    <!-- 現状サマリー -->
-    <div id="action-summary"></div>
+    <!-- 今週のサマリーヒーロー -->
+    <div class="mkt-hero" id="mkt-hero-block">
+      <div class="mkt-hero-date">
+        <span class="mkt-updated-dot" style="background:rgba(255,255,255,.5)"></span>
+        <span id="mkt-hero-updated">更新中...</span>
+      </div>
+      <div class="mkt-hero-title" id="mkt-hero-title">今週の市場サマリー</div>
+      <div class="mkt-highlights" id="mkt-hero-points"></div>
+    </div>
 
-    <!-- アクション提案カード群 -->
-    <div class="sec-label"><span class="dot"></span>優先アクション</div>
-    <div id="action-cards"></div>
+    <!-- PDCAサブタブ -->
+    <div class="mkt-subtabs">
+      <button class="mkt-stab active" onclick="mktTab('plan',this)">📋 P｜計画</button>
+      <button class="mkt-stab" onclick="mktTab('competitor',this)">🏪 競合情報</button>
+      <button class="mkt-stab" onclick="mktTab('machine',this)">⚡ 導入マシン</button>
+      <button class="mkt-stab" onclick="mktTab('needs',this)">💆 顧客ニーズ</button>
+      <button class="mkt-stab" onclick="mktTab('industry',this)">🌏 業界トレンド</button>
+      <button class="mkt-stab" onclick="mktTab('do',this)">✅ D｜実行</button>
+      <button class="mkt-stab" onclick="mktTab('check',this)">📊 C｜振り返り</button>
+      <button class="mkt-stab" onclick="mktTab('action',this)">🔄 A｜次のアクション</button>
+    </div>
+
+    <!-- P: 計画 -->
+    <div class="mkt-subpanel active" id="mkt-plan">
+      <div class="mkt-updated" id="mkt-plan-updated"><span class="mkt-updated-dot"></span><span>更新中...</span></div>
+      <div class="sec-label"><span class="dot"></span>今やるべき施策 TOP3</div>
+      <div id="mkt-plan-cards"></div>
+      <button class="mkt-add-btn" onclick="openMktModal('plan')">＋ 施策を追加</button>
+    </div>
+
+    <!-- 競合情報 -->
+    <div class="mkt-subpanel" id="mkt-competitor">
+      <div class="mkt-updated" id="mkt-comp-updated"><span class="mkt-updated-dot"></span><span>更新中...</span></div>
+      <div class="sec-label"><span class="dot"></span>競合サロン一覧（オンダリフト関連）</div>
+      <div class="comp-tbl-wrap">
+        <table class="comp-tbl">
+          <thead>
+            <tr>
+              <th>店舗名</th><th>エリア</th><th>価格帯</th><th>メニュー</th><th>訴求ポイント</th><th>掲載媒体</th>
+            </tr>
+          </thead>
+          <tbody id="comp-tbl-body"></tbody>
+        </table>
+      </div>
+      <button class="mkt-add-btn" onclick="openMktModal('competitor')">＋ 競合サロンを追加</button>
+      <div class="ai-fb-card" style="margin-top:4px">
+        <div class="ai-fb-hd"><div class="ai-fb-ico">💡</div><span class="ai-fb-label">調査ヒント</span></div>
+        <div class="ai-fb-text">
+          <span class="ai-point">Google検索「オンダリフト ＋地名」「小顔リフト エステ ＋地名」で競合を発見できます</span>
+          <span class="ai-point">HPB・Instagram・Googleマップの口コミも定期的にチェックしましょう</span>
+          <span class="ai-point">週1回、主要競合2〜3店舗のSNSをウォッチする習慣をつけると◎</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 導入マシン候補 -->
+    <div class="mkt-subpanel" id="mkt-machine">
+      <div class="mkt-updated" id="mkt-machine-updated"><span class="mkt-updated-dot"></span><span>更新中...</span></div>
+      <div class="sec-label"><span class="dot"></span>新規導入マシン候補</div>
+      <div id="mkt-machine-cards"></div>
+      <button class="mkt-add-btn" onclick="openMktModal('machine')">＋ マシン候補を追加</button>
+    </div>
+
+    <!-- 顧客ニーズ -->
+    <div class="mkt-subpanel" id="mkt-needs">
+      <div class="mkt-updated" id="mkt-needs-updated"><span class="mkt-updated-dot"></span><span>更新中...</span></div>
+      <div class="sec-label"><span class="dot"></span>年代別・顧客の悩みトレンド</div>
+      <div class="needs-card">
+        <div class="needs-age-grid" id="mkt-needs-age-grid"></div>
+      </div>
+      <div class="sec-label"><span class="dot"></span>SNS・口コミから見えるニーズ</div>
+      <div class="needs-card">
+        <div id="mkt-needs-sns"></div>
+      </div>
+      <div class="sec-label"><span class="dot"></span>トレンド変化（過去→現在）</div>
+      <div class="needs-card">
+        <div id="mkt-needs-trend"></div>
+      </div>
+    </div>
+
+    <!-- 業界トレンド -->
+    <div class="mkt-subpanel" id="mkt-industry">
+      <div class="mkt-updated" id="mkt-industry-updated"><span class="mkt-updated-dot"></span><span>更新中...</span></div>
+      <div class="sec-label"><span class="dot"></span>美容業界・社会トレンド</div>
+      <div class="needs-card">
+        <div id="mkt-industry-list"></div>
+      </div>
+    </div>
+
+    <!-- D: 実行 -->
+    <div class="mkt-subpanel" id="mkt-do">
+      <div class="mkt-updated" id="mkt-do-updated"><span class="mkt-updated-dot"></span><span>更新中...</span></div>
+      <div class="sec-label"><span class="dot"></span>実行中・予定タスク</div>
+      <div id="mkt-do-list"></div>
+      <button class="mkt-add-btn" onclick="openMktModal('do')">＋ タスクを追加</button>
+    </div>
+
+    <!-- C: 振り返り -->
+    <div class="mkt-subpanel" id="mkt-check">
+      <div class="mkt-updated" id="mkt-check-updated"><span class="mkt-updated-dot"></span><span>更新中...</span></div>
+      <div class="sec-label"><span class="dot"></span>施策の振り返り・結果</div>
+      <div id="mkt-check-list"></div>
+      <button class="mkt-add-btn" onclick="openMktModal('check')">＋ 振り返りを追加</button>
+    </div>
+
+    <!-- A: 次のアクション -->
+    <div class="mkt-subpanel" id="mkt-action">
+      <div class="mkt-updated" id="mkt-action-updated"><span class="mkt-updated-dot"></span><span>更新中...</span></div>
+      <div class="sec-label"><span class="dot"></span>継続 / 改善 / 中止の判断</div>
+      <div id="mkt-action-list"></div>
+      <button class="mkt-add-btn" onclick="openMktModal('action_item')">＋ アクションを追加</button>
+    </div>
+  </div>
+
+  <!-- 市場調査モーダル -->
+  <div class="mkt-modal-overlay" id="mktModalOverlay" onclick="mktModalOverlayClick(event)">
+    <div class="mkt-modal" id="mktModal">
+      <div class="mkt-modal-pull"></div>
+      <div class="mkt-modal-hd" id="mktModalTitle">追加・編集</div>
+      <div class="mkt-modal-body" id="mktModalBody"></div>
+      <div class="mkt-modal-footer">
+        <button class="mkt-modal-del" id="mktModalDel" onclick="deleteMktItem()" style="display:none">削除</button>
+        <button class="mkt-modal-cancel" onclick="closeMktModal()">キャンセル</button>
+        <button class="mkt-modal-save" onclick="saveMktItem()">保存</button>
+      </div>
+    </div>
   </div>
 
 </div>
@@ -1003,7 +1255,7 @@
     <button class="ni" onclick="go('rank',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">🏆</span><span class="ni-lbl" style="font-size:8px">順位</span><span class="ni-dot"></span></button>
     <button class="ni" onclick="go('knowledge',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">💡</span><span class="ni-lbl" style="font-size:8px">知識</span><span class="ni-dot"></span></button>
     <button class="ni" onclick="go('customer',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">👤</span><span class="ni-lbl" style="font-size:8px">顧客</span><span class="ni-dot"></span></button>
-    <button class="ni" onclick="go('action',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">⚡</span><span class="ni-lbl" style="font-size:8px">提案</span><span class="ni-dot"></span></button>
+    <button class="ni" onclick="go('action',this)" style="padding:5px 4px"><span class="ni-ico" style="font-size:18px">🔍</span><span class="ni-lbl" style="font-size:8px">市場調査</span><span class="ni-dot"></span></button>
   </div>
 </nav>
 
@@ -1342,6 +1594,8 @@ function parseStore(rows) {
     var r=rows[i];
     var name=r[iName]||'';
     if(!name||name==='全体合計') continue;
+    // 日付パターン行（"26年2月"等）を除外
+    if(/[年月]/.test(name)) continue;
     var sales=toNum(r[iSales]);
     var salesT=toNum(r[iSalesT]);
     // 達成率: まず着地見込み列を試みる、なければ計算
@@ -2355,8 +2609,6 @@ async function loadData(){
     buildStore(stores, staff);
     buildStaff(staff);
     buildRanking(stores,staff);
-    buildAction(stores, staff);
-
     var now=new Date();
     document.getElementById('updChip').textContent=now.getHours()+':'+String(now.getMinutes()).padStart(2,'0')+' 更新';
     pulseLogoComplete();
@@ -2379,6 +2631,7 @@ function initPinLock() {
   var lock = document.getElementById('pin-lock');
   if (sessionStorage.getItem('lift_unlocked') === '1') {
     lock.classList.add('hidden');
+    try { buildMarketResearch(); } catch(e) { console.warn('市場調査初期化:', e); }
     loadData();
   }
 
@@ -2447,6 +2700,7 @@ function checkPin() {
       setTimeout(function() {
         lock.classList.add('hidden');
         lock.style.opacity = '';
+        try { buildMarketResearch(); } catch(e) { console.warn('市場調査初期化:', e); }
         loadData();
       }, 500);
     }, 350);
@@ -2465,102 +2719,490 @@ function checkPin() {
 }
 
 
-// ===== アクション提案タブ =====
-function buildAction(stores, staffList) {
-  var staff = (staffList||[]).filter(function(s){ return s.store && s.store !== '' && s.sales > 0; });
-  var allStaff = (staffList||[]).filter(function(s){ return s.store && s.store !== ''; });
+// ===== 市場調査タブ =====
 
-  // 現状サマリー
-  var totalSales = staff.reduce(function(sum,s){return sum+s.sales;},0);
-  var avgAch = staff.length>0 ? Math.round(staff.reduce(function(sum,s){return sum+s.ach;},0)/staff.length) : 0;
-  var lowPerf = allStaff.filter(function(s){return s.ach < 60;});
-  var highPerf = staff.filter(function(s){return s.ach >= 100;});
-  var avgUnit = staff.length>0 ? Math.round(staff.reduce(function(sum,s){return sum+s.unit;},0)/staff.length) : 0;
+// LocalStorageキー
+var MKT_KEYS = {
+  plan: 'mkt_plan',
+  competitor: 'mkt_competitor',
+  machine: 'mkt_machine',
+  needs: 'mkt_needs',
+  industry: 'mkt_industry',
+  do: 'mkt_do',
+  check: 'mkt_check',
+  action_item: 'mkt_action_item',
+  updated: 'mkt_updated'
+};
 
-  var summaryHtml = '<div class="sa-summary" style="background:linear-gradient(135deg,#1a1040,#2d1b6e);color:#fff;border:none">'
-    + '<div style="font-size:13px;font-weight:700;margin-bottom:10px;opacity:.9">📊 現状スナップショット（' + (new Date().getMonth()+1) + '月）</div>'
-    + '<div class="sa-stats">'
-    + '<div class="sa-stat" style="background:rgba(255,255,255,.1)"><div class="sa-stat-val" style="color:#fff">' + (totalSales>=1000000?Math.round(totalSales/10000)+'万':'--') + '円</div><div class="sa-stat-lbl" style="color:rgba(255,255,255,.7)">全店合計売上</div></div>'
-    + '<div class="sa-stat" style="background:rgba(255,255,255,.1)"><div class="sa-stat-val" style="color:#fff">' + avgAch + '%</div><div class="sa-stat-lbl" style="color:rgba(255,255,255,.7)">平均達成率</div></div>'
-    + '<div class="sa-stat" style="background:rgba(255,255,255,.1)"><div class="sa-stat-val" style="color:#fff">' + highPerf.length + '名</div><div class="sa-stat-lbl" style="color:rgba(255,255,255,.7)">目標達成者</div></div>'
-    + '</div>'
-    + '</div>';
-  document.getElementById('action-summary').innerHTML = summaryHtml;
+// デフォルトデータ
+var MKT_DEFAULTS = {
+  plan: [
+    {id:1, priority:'A', title:'競合HPB施策の強化', desc:'上位競合がHPBでクーポン強化中。自社も写真・クーポンを今月中に更新して露出を上げる。', actions:['HPBプロフィール写真を最新ビフォーアフターに更新','新規クーポン2種追加（体験・コース）','口コミ返信を週2回行い評価を向上']},
+    {id:2, priority:'B', title:'SNSビフォーアフター投稿の週次化', desc:'InstagramのBefore/After投稿を週3回以上継続することで新規認知を拡大する。', actions:['投稿テンプレートを作成してスタッフ共有','ハッシュタグ10個を固定設定','投稿担当者・曜日を決めてルーティン化']},
+    {id:3, priority:'C', title:'紹介制度の再告知', desc:'既存顧客からの紹介は獲得コストが最も低い。紹介カードを刷新して再告知する。', actions:['紹介特典を見直し（紹介者・被紹介者双方に特典）','施術後に口頭＋カードで案内','LINEでも告知メッセージ送信']}
+  ],
+  competitor: [
+    {id:1, name:'Salon A（仮）', area:'渋谷', price:'¥8,000〜12,000', menu:'オンダリフト・小顔ケア', point:'即効性・小顔', media:'HPB・Instagram'},
+    {id:2, name:'Beauty Lift B（仮）', area:'新宿', price:'¥6,000〜15,000', menu:'リフトアップ・たるみケア', point:'継続効果・コスパ', media:'HPB・Google'},
+    {id:3, name:'Esthe C（仮）', area:'表参道', price:'¥10,000〜25,000', menu:'医療級ケア・リフト', point:'高品質・差別化', media:'公式HP・Instagram'}
+  ],
+  machine: [
+    {id:1, name:'HIFU（ハイフ）上位機種', overview:'超音波でSMAS層に直接アプローチするリフトアップマシン', effect:'たるみ改善・リフトアップ・コラーゲン再生', trend:'急上昇中', why:'医療サロン化トレンドに乗り差別化。客単価1.5〜2倍が見込める。競合との優位性確保に有効。'},
+    {id:2, name:'EMS小顔マシン最新型', overview:'筋電気刺激で表情筋にアプローチする最新小顔ケア機器', effect:'小顔・リフトアップ・筋肉活性化', trend:'注目', why:'タイパ志向の顧客に刺さる「短時間で効果実感」を訴求できる。SNS映えもしやすい。'}
+  ],
+  needs: {
+    age: [
+      {age:'20代', tags:['毛穴・ニキビ','透明感','プチプラ重視','SNS映え']},
+      {age:'30代', tags:['たるみ・ほうれい線','小顔','即効性','コスパ']},
+      {age:'40代', tags:['リフトアップ','シワ改善','継続効果','医療寄り']},
+      {age:'50代以上', tags:['深いたるみ','顔のたるみ','しっかりケア','信頼性']}
+    ],
+    sns: [
+      {text:'「すぐ効果が出た」という即効性レビューが人気。一度の施術でビフォーアフターが見えることへの需要が高まっている。'},
+      {text:'「痛くない・ダウンタイムなし」の訴求が刺さる。医療系は怖いと感じる層への訴求に有効。'},
+      {text:'韓国系サロンの「オルチャン小顔」需要が増加中。Vライン・小顔フレームが特に人気。'}
+    ],
+    trend: [
+      {before:'数年前: 痩身・むくみ取り', now:'現在: リフトアップ・小顔が主流', change:'up'},
+      {before:'以前: 月1回のスペシャルケア', now:'現在: 週1〜隔週のルーティン化', change:'up'},
+      {before:'以前: リラクゼーション目的', now:'現在: 結果・効果重視（タイパ）', change:'up'}
+    ]
+  },
+  industry: [
+    {ico:'🇰🇷', title:'韓国美容トレンドの波及', desc:'韓国発の小顔・オルチャン美容が日本市場に本格普及。Vライン・彫刻フェイスの需要が急増。HPBでも「韓国式」ワードでの検索数が伸長中。', badge:'hot'},
+    {ico:'🏥', title:'医療寄り・高機能化', desc:'エステから医療グレードの機器・技術を取り入れるトレンド。HIFU・EMS・ラジオ波の高機能版への需要が拡大。「ちゃんと効くサロン」への選別が進む。', badge:'hot'},
+    {ico:'⚡', title:'即効性・タイパ志向', desc:'「1回で変わる」「時間を無駄にしたくない」需要が急増。施術時間の短縮と効果実感の両立が差別化ポイントに。', badge:'rising'},
+    {ico:'💰', title:'コスパ志向の二極化', desc:'プチプラ志向と高単価プレミアム志向に二極化が進行。中間価格帯が苦しくなる傾向。明確な価値訴求が必要。', badge:'steady'},
+    {ico:'📱', title:'SNS×口コミが集客の核', desc:'HPBからSNS・Google口コミへ情報取得経路がシフト。Instagramのリールでビフォーアフター訴求が最も効果的。', badge:'rising'}
+  ],
+  do: [
+    {id:1, title:'HPB写真・クーポン更新', owner:'店長', deadline:'2026-03-31', status:'doing'},
+    {id:2, title:'Instagram週3投稿ルーティン化', owner:'SNS担当', deadline:'2026-04-07', status:'todo'},
+    {id:3, title:'競合調査（新宿エリア）', owner:'マネージャー', deadline:'2026-04-14', status:'todo'}
+  ],
+  check: [
+    {id:1, title:'HPBクーポン更新施策', sales_change:'+8%', contract_change:'+5%', new_change:'+12%', good:'新規問い合わせが増加。クーポン経由の予約が倍増。', issue:'写真の質がまだ弱い。プロ撮影を検討する必要あり。'}
+  ],
+  action_item: [
+    {id:1, title:'HPBクーポン定期更新', decision:'continue', next:'月1回の更新を恒久化。担当者を決めてルーティンに組み込む。'},
+    {id:2, title:'割引クーポンのみの集客', decision:'improve', next:'値引き幅を減らし、体験価値の訴求に変更。コース誘導率を測定する。'}
+  ]
+};
 
-  // アクション提案カード
-  var actions = [];
+var mktCurrentModal = null;
+var mktEditId = null;
 
-  // 低達成スタッフへの対応
-  if(lowPerf.length > 0){
-    actions.push({
-      priority:'🔴 緊急',
-      color:'var(--rose)',
-      bg:'var(--rose-p)',
-      title:'低達成スタッフの個別フォロー（' + lowPerf.length + '名）',
-      detail: lowPerf.slice(0,3).map(function(s){return s.name+'（'+Math.round(s.ach)+'%達成）';}).join('、'),
-      actions:['個別面談でボトルネック特定','施術件数・カウンセリング時間を確認','トップスタッフとペアで施術体験']
-    });
-  }
+function mktGetData(key) {
+  try {
+    var d = localStorage.getItem(MKT_KEYS[key]);
+    return d ? JSON.parse(d) : null;
+  } catch(e) { return null; }
+}
 
-  // 単価UP施策
-  if(avgUnit > 0){
-    actions.push({
-      priority:'🟡 重要',
-      color:'var(--gold)',
-      bg:'var(--gold-p)',
-      title:'客単価UP施策（現状平均 ¥' + avgUnit.toLocaleString() + '）',
-      detail:'回数券・コース提案・アップセルトークの強化',
-      actions:['カウンセリング時のコース提案を必須化','施術後のホームケア提案を徹底','回数券割引率の見直しで購入ハードルを下げる']
-    });
-  }
+function mktSaveData(key, data) {
+  try {
+    localStorage.setItem(MKT_KEYS[key], JSON.stringify(data));
+    var now = new Date();
+    var updated = {};
+    try { updated = JSON.parse(localStorage.getItem(MKT_KEYS.updated) || '{}'); } catch(e){}
+    updated[key] = now.toISOString();
+    localStorage.setItem(MKT_KEYS.updated, JSON.stringify(updated));
+  } catch(e) {}
+}
 
-  // 継続率改善
-  actions.push({
-    priority:'🟡 重要',
-    color:'var(--mint)',
-    bg:'var(--mint-p)',
-    title:'再来・継続促進施策',
-    detail:'継続率向上で売上安定化',
-    actions:['施術後に次回予約を必ず入れる（当日予約化）','LINE登録を促進してリマインド強化','継続特典・回数券で離脱防止']
+function mktGetUpdated(key) {
+  try {
+    var updated = JSON.parse(localStorage.getItem(MKT_KEYS.updated) || '{}');
+    if (!updated[key]) return '未更新';
+    var d = new Date(updated[key]);
+    var now = new Date();
+    var diff = Math.floor((now - d) / 60000);
+    if (diff < 1) return 'たった今更新';
+    if (diff < 60) return diff + '分前に更新';
+    if (diff < 1440) return Math.floor(diff/60) + '時間前に更新';
+    return Math.floor(diff/1440) + '日前に更新';
+  } catch(e) { return ''; }
+}
+
+function mktInitData(key) {
+  if (mktGetData(key) !== null) return;
+  mktSaveData(key, MKT_DEFAULTS[key]);
+}
+
+function buildMarketResearch() {
+  ['plan','competitor','machine','do','check','action_item'].forEach(function(k){ mktInitData(k); });
+
+  // needs/industryは固定表示のため特別処理
+  renderMktPlan();
+  renderMktCompetitor();
+  renderMktMachine();
+  renderMktNeeds();
+  renderMktIndustry();
+  renderMktDo();
+  renderMktCheck();
+  renderMktActionItems();
+  renderMktHero();
+}
+
+function mktFmtDate(iso) {
+  if (!iso) return '';
+  var d = new Date(iso);
+  return (d.getMonth()+1) + '/' + d.getDate();
+}
+
+// ===== Hero =====
+function renderMktHero() {
+  var plan = mktGetData('plan') || MKT_DEFAULTS.plan;
+  var now = new Date();
+  var dateStr = now.getFullYear() + '年' + (now.getMonth()+1) + '月' + now.getDate() + '日 更新';
+  document.getElementById('mkt-hero-updated').textContent = dateStr;
+  document.getElementById('mkt-hero-title').textContent = '今週の市場調査サマリー';
+  var pts = '';
+  if (plan.length > 0) pts += '<div class="mkt-hl-item"><span class="mkt-hl-badge">P</span><span>今やるべき施策: <b>' + plan[0].title + '</b>（優先度' + plan[0].priority + '）</span></div>';
+  var comp = mktGetData('competitor') || MKT_DEFAULTS.competitor;
+  pts += '<div class="mkt-hl-item"><span class="mkt-hl-badge">🏪</span><span>競合サロン登録数: <b>' + comp.length + '件</b>　最新確認: 本日</span></div>';
+  var doList = mktGetData('do') || MKT_DEFAULTS.do;
+  var doing = doList.filter(function(d){return d.status==='doing';}).length;
+  pts += '<div class="mkt-hl-item"><span class="mkt-hl-badge">✅</span><span>実行中タスク: <b>' + doing + '件</b>　今週の目標を確認してください</span></div>';
+  document.getElementById('mkt-hero-points').innerHTML = pts;
+}
+
+// ===== Plan =====
+function renderMktPlan() {
+  var data = mktGetData('plan') || MKT_DEFAULTS.plan;
+  document.getElementById('mkt-plan-updated').querySelector('span:last-child').textContent = mktGetUpdated('plan');
+  var html = '';
+  data.forEach(function(item) {
+    var cls = item.priority === 'A' ? 'a' : item.priority === 'B' ? 'b' : 'c';
+    html += '<div class="plan-card">'
+      + '<div class="plan-priority-row"><span class="plan-priority-badge ' + cls + '">優先度 ' + item.priority + '</span>'
+      + '<button class="mkt-edit-btn" onclick="openMktModal(\'plan\',' + item.id + ')">編集</button></div>'
+      + '<div class="plan-title">' + escH(item.title) + '</div>'
+      + '<div class="plan-desc">' + escH(item.desc) + '</div>'
+      + '<div class="plan-actions-list">';
+    (item.actions||[]).forEach(function(a){ html += '<div class="plan-action-item">' + escH(a) + '</div>'; });
+    html += '</div></div>';
   });
+  document.getElementById('mkt-plan-cards').innerHTML = html || '<div class="empty"><p>施策がありません。追加してください。</p></div>';
+}
 
-  // トップ事例横展開
-  if(highPerf.length > 0){
-    actions.push({
-      priority:'🟢 推奨',
-      color:'var(--lav)',
-      bg:'var(--lav-p)',
-      title:'トップパフォーマーの事例共有',
-      detail: highPerf[0].name + 'など' + highPerf.length + '名の成功パターンを全店展開',
-      actions:['週次ミーティングで成功事例を発表','カウンセリングトーク・提案タイミングをマニュアル化','店舗間の横断ロールプレイ実施']
-    });
-  }
-
-  // 新規集客
-  actions.push({
-    priority:'🟢 推奨',
-    color:'var(--coral)',
-    bg:'var(--coral-p)',
-    title:'新規集客強化',
-    detail:'SNS・HPB・紹介制度の活用',
-    actions:['InstagramのBefore/After投稿を週3回以上','HPBのクーポン・写真を更新して露出UP','紹介制度（紹介者・被紹介者双方に特典）の告知']
+// ===== Competitor =====
+function renderMktCompetitor() {
+  var data = mktGetData('competitor') || MKT_DEFAULTS.competitor;
+  document.getElementById('mkt-comp-updated').querySelector('span:last-child').textContent = mktGetUpdated('competitor');
+  var html = '';
+  data.forEach(function(item) {
+    var badges = (item.media||'').split('・').map(function(m){
+      var t = m.trim();
+      var cls = t.indexOf('HPB')>=0?'hpb':t.indexOf('Instagram')>=0||t.indexOf('IG')>=0?'ig':t.indexOf('Google')>=0?'google':'web';
+      return '<span class="comp-badge ' + cls + '">' + escH(t) + '</span>';
+    }).join(' ');
+    html += '<tr>'
+      + '<td style="font-weight:700;white-space:nowrap">' + escH(item.name) + '<br><button class="mkt-edit-btn" style="margin-top:4px" onclick="openMktModal(\'competitor\',' + item.id + ')">編集</button></td>'
+      + '<td>' + escH(item.area) + '</td>'
+      + '<td style="white-space:nowrap">' + escH(item.price) + '</td>'
+      + '<td>' + escH(item.menu) + '</td>'
+      + '<td>' + escH(item.point) + '</td>'
+      + '<td>' + badges + '</td>'
+      + '</tr>';
   });
+  document.getElementById('comp-tbl-body').innerHTML = html || '<tr><td colspan="6" style="text-align:center;padding:16px;color:var(--text3)">競合サロンを追加してください</td></tr>';
+}
 
-  var cardsHtml = '';
-  actions.forEach(function(a){
-    cardsHtml += '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;box-shadow:var(--sh);border-left:4px solid '+a.color+'">'
-      + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'
-      + '<span style="font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:'+a.bg+';color:'+a.color+'">'+a.priority+'</span>'
-      + '</div>'
-      + '<div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px">'+a.title+'</div>'
-      + '<div style="font-size:11px;color:var(--text2);margin-bottom:10px">'+a.detail+'</div>'
-      + '<div style="font-size:11px;color:var(--text2)">'
-      + a.actions.map(function(act){ return '<div style="display:flex;gap:6px;margin-bottom:5px"><span style="color:'+a.color+';flex-shrink:0">▶</span><span>'+act+'</span></div>'; }).join('')
-      + '</div>'
+// ===== Machine =====
+function renderMktMachine() {
+  var data = mktGetData('machine') || MKT_DEFAULTS.machine;
+  document.getElementById('mkt-machine-updated').querySelector('span:last-child').textContent = mktGetUpdated('machine');
+  var html = '';
+  data.forEach(function(item) {
+    html += '<div class="machine-card">'
+      + '<div class="machine-card-hd"><div class="machine-name">' + escH(item.name) + '</div><span class="machine-trend">📈 ' + escH(item.trend) + '</span></div>'
+      + '<div class="machine-row"><span class="machine-lbl">概要</span><span class="machine-val">' + escH(item.overview) + '</span></div>'
+      + '<div class="machine-row"><span class="machine-lbl">効果</span><span class="machine-val">' + escH(item.effect) + '</span></div>'
+      + '<div class="machine-why">💡 <b>なぜ今導入すべきか：</b>' + escH(item.why) + '</div>'
+      + '<div style="margin-top:8px;text-align:right"><button class="mkt-edit-btn" onclick="openMktModal(\'machine\',' + item.id + ')">編集</button></div>'
       + '</div>';
   });
-  document.getElementById('action-cards').innerHTML = cardsHtml;
+  document.getElementById('mkt-machine-cards').innerHTML = html || '<div class="empty"><p>マシン候補を追加してください。</p></div>';
 }
+
+// ===== Needs =====
+function renderMktNeeds() {
+  document.getElementById('mkt-needs-updated').querySelector('span:last-child').textContent = '定期見直し推奨';
+  var age = MKT_DEFAULTS.needs.age;
+  var ageHtml = '';
+  age.forEach(function(a) {
+    ageHtml += '<div class="needs-age-item"><div class="needs-age-lbl">' + a.age + '</div><div class="needs-age-tags">';
+    a.tags.forEach(function(t){ ageHtml += '<span class="needs-tag">' + t + '</span>'; });
+    ageHtml += '</div></div>';
+  });
+  document.getElementById('mkt-needs-age-grid').innerHTML = ageHtml;
+
+  var snsHtml = '';
+  MKT_DEFAULTS.needs.sns.forEach(function(s){ snsHtml += '<div class="trend-item"><span class="trend-ico">📱</span><div class="trend-body"><div class="trend-desc">' + escH(s.text) + '</div></div></div>'; });
+  document.getElementById('mkt-needs-sns').innerHTML = snsHtml;
+
+  var trendHtml = '';
+  MKT_DEFAULTS.needs.trend.forEach(function(t){
+    trendHtml += '<div class="trend-item"><span class="trend-ico">📊</span><div class="trend-body">'
+      + '<div class="trend-desc" style="color:var(--text3);font-size:10px">' + escH(t.before) + '</div>'
+      + '<div style="font-size:10px;color:var(--text3);padding:2px 0">↓</div>'
+      + '<div class="trend-desc" style="font-weight:700;color:var(--text)">' + escH(t.now) + '</div>'
+      + '</div></div>';
+  });
+  document.getElementById('mkt-needs-trend').innerHTML = trendHtml;
+}
+
+// ===== Industry =====
+function renderMktIndustry() {
+  document.getElementById('mkt-industry-updated').querySelector('span:last-child').textContent = '定期見直し推奨';
+  var html = '';
+  MKT_DEFAULTS.industry.forEach(function(item) {
+    html += '<div class="trend-item"><span class="trend-ico">' + item.ico + '</span><div class="trend-body">'
+      + '<div class="trend-title">' + escH(item.title) + '</div>'
+      + '<div class="trend-desc">' + escH(item.desc) + '</div>'
+      + '<span class="trend-badge ' + item.badge + '">' + (item.badge==='hot'?'🔥 注目':item.badge==='rising'?'📈 上昇中':'📌 継続') + '</span>'
+      + '</div></div>';
+  });
+  document.getElementById('mkt-industry-list').innerHTML = html;
+}
+
+// ===== Do =====
+function renderMktDo() {
+  var data = mktGetData('do') || MKT_DEFAULTS.do;
+  document.getElementById('mkt-do-updated').querySelector('span:last-child').textContent = mktGetUpdated('do');
+  var order = {doing:0, todo:1, done:2};
+  data.sort(function(a,b){ return (order[a.status]||1)-(order[b.status]||1); });
+  var html = '';
+  data.forEach(function(item) {
+    var statusLbl = item.status==='doing'?'実行中':item.status==='done'?'完了':'予定';
+    html += '<div class="do-item">'
+      + '<span class="do-status ' + item.status + '">' + statusLbl + '</span>'
+      + '<div class="do-body"><div class="do-title">' + escH(item.title) + '</div>'
+      + '<div class="do-meta"><span>👤 ' + escH(item.owner||'—') + '</span><span>📅 ' + escH(item.deadline||'—') + '</span></div></div>'
+      + '<button class="mkt-edit-btn" onclick="openMktModal(\'do\',' + item.id + ')">編集</button>'
+      + '</div>';
+  });
+  document.getElementById('mkt-do-list').innerHTML = html || '<div class="empty"><p>タスクを追加してください。</p></div>';
+}
+
+// ===== Check =====
+function renderMktCheck() {
+  var data = mktGetData('check') || MKT_DEFAULTS.check;
+  document.getElementById('mkt-check-updated').querySelector('span:last-child').textContent = mktGetUpdated('check');
+  var html = '';
+  data.forEach(function(item) {
+    html += '<div class="check-item">'
+      + '<div class="check-title">📊 ' + escH(item.title)
+      + ' <button class="mkt-edit-btn" onclick="openMktModal(\'check\',' + item.id + ')">編集</button></div>'
+      + '<div class="check-result-row">'
+      + '<div class="check-metric"><div class="check-metric-lbl">売上影響</div><div class="check-metric-val up">' + escH(item.sales_change||'—') + '</div></div>'
+      + '<div class="check-metric"><div class="check-metric-lbl">契約率変化</div><div class="check-metric-val up">' + escH(item.contract_change||'—') + '</div></div>'
+      + '<div class="check-metric"><div class="check-metric-lbl">新規数変化</div><div class="check-metric-val up">' + escH(item.new_change||'—') + '</div></div>'
+      + '</div>';
+    if (item.good) html += '<div class="check-pts good">✅ <b>良かった点：</b>' + escH(item.good) + '</div>';
+    if (item.issue) html += '<div class="check-pts issue" style="margin-top:6px">⚠️ <b>課題：</b>' + escH(item.issue) + '</div>';
+    html += '</div>';
+  });
+  document.getElementById('mkt-check-list').innerHTML = html || '<div class="empty"><p>振り返りを追加してください。</p></div>';
+}
+
+// ===== Action Items =====
+function renderMktActionItems() {
+  var data = mktGetData('action_item') || MKT_DEFAULTS.action_item;
+  document.getElementById('mkt-action-updated').querySelector('span:last-child').textContent = mktGetUpdated('action_item');
+  var html = '';
+  data.forEach(function(item) {
+    var decLbl = item.decision==='continue'?'継続':item.decision==='improve'?'改善':'中止';
+    html += '<div class="action-item">'
+      + '<span class="action-decision ' + item.decision + '">' + decLbl + '</span>'
+      + '<div class="action-body"><div class="action-title">' + escH(item.title) + '</div>'
+      + '<div class="action-next">' + escH(item.next||'') + '</div></div>'
+      + '<button class="mkt-edit-btn" onclick="openMktModal(\'action_item\',' + item.id + ')">編集</button>'
+      + '</div>';
+  });
+  document.getElementById('mkt-action-list').innerHTML = html || '<div class="empty"><p>アクションを追加してください。</p></div>';
+}
+
+function escH(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ===== サブタブ切替 =====
+function mktTab(name, btn) {
+  document.querySelectorAll('.mkt-subpanel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.mkt-stab').forEach(function(b){ b.classList.remove('active'); });
+  var panel = document.getElementById('mkt-' + name);
+  if (panel) panel.classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+// ===== モーダル =====
+var MODAL_FORMS = {
+  plan: {
+    title: '施策を追加・編集',
+    fields: [
+      {key:'priority', label:'優先度', type:'select', options:['A','B','C']},
+      {key:'title', label:'施策名', type:'text', placeholder:'例：Instagram投稿の強化'},
+      {key:'desc', label:'詳細・目的', type:'textarea', placeholder:'なぜやるか、何を目指すか'},
+      {key:'actions', label:'具体的アクション（改行区切り）', type:'textarea', placeholder:'例：週3回投稿する\nハッシュタグを最適化する', isArray:true}
+    ]
+  },
+  competitor: {
+    title: '競合サロンを追加・編集',
+    fields: [
+      {key:'name', label:'店舗名', type:'text', placeholder:'例：Salon ABC'},
+      {key:'area', label:'エリア', type:'text', placeholder:'例：渋谷・新宿'},
+      {key:'price', label:'価格帯', type:'text', placeholder:'例：¥8,000〜15,000'},
+      {key:'menu', label:'メニュー内容', type:'text', placeholder:'例：小顔リフト・オンダリフト'},
+      {key:'point', label:'訴求ポイント', type:'text', placeholder:'例：即効性・小顔・リフトアップ'},
+      {key:'media', label:'掲載媒体（・区切り）', type:'text', placeholder:'例：HPB・Instagram・Google'}
+    ]
+  },
+  machine: {
+    title: 'マシン候補を追加・編集',
+    fields: [
+      {key:'name', label:'マシン名', type:'text', placeholder:'例：HIFU上位機種'},
+      {key:'overview', label:'概要', type:'textarea', placeholder:'どんな機器か'},
+      {key:'effect', label:'効果', type:'text', placeholder:'例：リフトアップ・たるみ改善'},
+      {key:'trend', label:'市場トレンド', type:'text', placeholder:'例：急上昇中・注目'},
+      {key:'why', label:'なぜ今導入すべきか', type:'textarea', placeholder:'収益性・差別化・競合優位性'}
+    ]
+  },
+  do: {
+    title: 'タスクを追加・編集',
+    fields: [
+      {key:'title', label:'タスク名', type:'text', placeholder:'例：HPB写真更新'},
+      {key:'owner', label:'担当者', type:'text', placeholder:'例：店長'},
+      {key:'deadline', label:'期限（YYYY-MM-DD）', type:'text', placeholder:'例：2026-04-30'},
+      {key:'status', label:'ステータス', type:'select', options:['todo','doing','done'], labels:['予定','実行中','完了']}
+    ]
+  },
+  check: {
+    title: '振り返りを追加・編集',
+    fields: [
+      {key:'title', label:'施策名', type:'text', placeholder:'例：HPBクーポン更新'},
+      {key:'sales_change', label:'売上影響', type:'text', placeholder:'例：+8%'},
+      {key:'contract_change', label:'契約率変化', type:'text', placeholder:'例：+5%'},
+      {key:'new_change', label:'新規数変化', type:'text', placeholder:'例：+12%'},
+      {key:'good', label:'良かった点', type:'textarea'},
+      {key:'issue', label:'課題', type:'textarea'}
+    ]
+  },
+  action_item: {
+    title: 'アクション判断を追加・編集',
+    fields: [
+      {key:'title', label:'施策名', type:'text', placeholder:'例：HPBクーポン定期更新'},
+      {key:'decision', label:'判断', type:'select', options:['continue','improve','stop'], labels:['継続','改善','中止']},
+      {key:'next', label:'次のアクション', type:'textarea', placeholder:'具体的に何をするか'}
+    ]
+  }
+};
+
+function openMktModal(type, editId) {
+  mktCurrentModal = type;
+  mktEditId = editId || null;
+  var form = MODAL_FORMS[type];
+  if (!form) return;
+  document.getElementById('mktModalTitle').textContent = form.title;
+  var data = null;
+  if (editId) {
+    var list = mktGetData(type) || MKT_DEFAULTS[type] || [];
+    data = list.filter(function(i){ return i.id === editId; })[0] || null;
+  }
+  var html = '';
+  form.fields.forEach(function(f) {
+    html += '<div class="mkt-field"><label>' + f.label + '</label>';
+    if (f.type === 'select') {
+      html += '<select id="mktF_' + f.key + '">';
+      (f.options||[]).forEach(function(o, i) {
+        var lbl = f.labels ? f.labels[i] : o;
+        var sel = data && data[f.key] === o ? ' selected' : '';
+        html += '<option value="' + o + '"' + sel + '>' + lbl + '</option>';
+      });
+      html += '</select>';
+    } else if (f.type === 'textarea') {
+      var val = data ? (f.isArray ? (data[f.key]||[]).join('\n') : (data[f.key]||'')) : '';
+      html += '<textarea id="mktF_' + f.key + '" placeholder="' + (f.placeholder||'') + '">' + escH(val) + '</textarea>';
+    } else {
+      var val = data ? (data[f.key]||'') : '';
+      html += '<input type="text" id="mktF_' + f.key + '" placeholder="' + (f.placeholder||'') + '" value="' + escH(val) + '">';
+    }
+    html += '</div>';
+  });
+  document.getElementById('mktModalBody').innerHTML = html;
+  document.getElementById('mktModalDel').style.display = editId ? 'block' : 'none';
+  document.getElementById('mktModalOverlay').classList.add('open');
+}
+
+function closeMktModal() {
+  document.getElementById('mktModalOverlay').classList.remove('open');
+  mktCurrentModal = null;
+  mktEditId = null;
+}
+
+function mktModalOverlayClick(e) {
+  if (e.target === document.getElementById('mktModalOverlay')) closeMktModal();
+}
+
+function saveMktItem() {
+  var type = mktCurrentModal;
+  if (!type) return;
+  var form = MODAL_FORMS[type];
+  var obj = {};
+  form.fields.forEach(function(f) {
+    var el = document.getElementById('mktF_' + f.key);
+    if (!el) return;
+    if (f.isArray) {
+      obj[f.key] = el.value.split('\n').map(function(s){ return s.trim(); }).filter(function(s){ return s; });
+    } else {
+      obj[f.key] = el.value;
+    }
+  });
+  var list = mktGetData(type);
+  if (!list) {
+    var def = MKT_DEFAULTS[type];
+    list = Array.isArray(def) ? JSON.parse(JSON.stringify(def)) : [];
+  }
+  if (mktEditId) {
+    for (var i=0; i<list.length; i++) {
+      if (list[i].id === mktEditId) { list[i] = Object.assign({id:mktEditId}, obj); break; }
+    }
+  } else {
+    var maxId = list.reduce(function(m,x){ return Math.max(m, x.id||0); }, 0);
+    obj.id = maxId + 1;
+    list.push(obj);
+  }
+  mktSaveData(type, list);
+  closeMktModal();
+  refreshMktPanel(type);
+  renderMktHero();
+}
+
+function deleteMktItem() {
+  var type = mktCurrentModal;
+  if (!type || !mktEditId) return;
+  var list = mktGetData(type) || [];
+  list = list.filter(function(i){ return i.id !== mktEditId; });
+  mktSaveData(type, list);
+  closeMktModal();
+  refreshMktPanel(type);
+  renderMktHero();
+}
+
+function refreshMktPanel(type) {
+  var fn = {
+    plan: renderMktPlan,
+    competitor: renderMktCompetitor,
+    machine: renderMktMachine,
+    do: renderMktDo,
+    check: renderMktCheck,
+    action_item: renderMktActionItems
+  }[type];
+  if (fn) fn();
+}
+
 
 initPinLock();
 
