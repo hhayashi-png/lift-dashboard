@@ -627,6 +627,20 @@
   .link-action-num{min-width:20px;height:20px;background:var(--g-rose);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
   .link-empty{padding:28px 16px;text-align:center;color:var(--text3);font-size:12px;line-height:1.8}
   .link-impact{font-size:12px;color:var(--text);line-height:1.7;background:var(--coral-p);border-radius:10px;padding:10px 12px}
+
+  /* スプレッドシート同期ボタン */
+  .mkt-sync-section{background:linear-gradient(135deg,#EEF4FF,#F8F0FF);border:1.5px solid rgba(14,77,138,.15);border-radius:16px;padding:16px;margin-bottom:14px}
+  .mkt-sync-label{font-size:11px;font-weight:700;color:#1a3a5c;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px}
+  .mkt-sync-desc{font-size:11px;color:var(--text3);margin-bottom:10px;line-height:1.5}
+  .mkt-sync-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px 18px;background:linear-gradient(135deg,#1a3a5c,#0e4d8a);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(14,77,138,.3);letter-spacing:.3px}
+  .mkt-sync-btn:disabled{opacity:.55;cursor:not-allowed}
+  .mkt-sync-btn:active:not(:disabled){opacity:.85;transform:scale(.98)}
+  .mkt-sync-status{font-size:11px;margin-top:8px;min-height:14px;line-height:1.5}
+  .mkt-sync-status.error{color:#C04060}
+  .mkt-sync-status.success{color:var(--mint)}
+  .mkt-sync-status.info{color:var(--lav)}
+  .mkt-divider{display:flex;align-items:center;gap:8px;margin:12px 0;color:var(--text4);font-size:11px}
+  .mkt-divider::before,.mkt-divider::after{content:'';flex:1;height:1px;background:var(--border)}
   </style>
 </head>
 <body>
@@ -1356,8 +1370,18 @@
 
     <!-- リンク分析 -->
     <div class="mkt-subpanel" id="mkt-links">
+
+      <!-- スプレッドシート同期 -->
+      <div class="mkt-sync-section">
+        <div class="mkt-sync-label">📊 スプレッドシート連携</div>
+        <div class="mkt-sync-desc">登録済みURLをスプレッドシートから自動取得し、Claude AIで市場調査を生成します</div>
+        <button id="mkt-sync-btn" class="mkt-sync-btn" onclick="syncMarketResearchFromSheet()">🔄 スプレッドシートから同期・分析</button>
+        <div id="mkt-sync-status" class="mkt-sync-status"></div>
+      </div>
+
+      <div class="mkt-divider">または手動でURLを追加</div>
+
       <div class="link-input-section">
-        <div class="sec-label"><span class="dot"></span>URLを追加して市場調査を自動生成</div>
         <div class="link-input-row">
           <input id="mkt-link-url" type="url" class="link-url-input" placeholder="https://記事・レポートのURLを貼り付け...">
           <button class="link-add-btn" onclick="addMktLink()">＋ 追加</button>
@@ -3866,6 +3890,107 @@ function deleteMktLink(id) {
   var links = getLinksDb().filter(function(l){ return l.id !== id; });
   saveLinksDb(links);
   renderMktLinks();
+}
+
+// ===== スプレッドシート連携同期 =====
+var MKT_SHEET_GID = 1921006944;
+
+async function syncMarketResearchFromSheet() {
+  var btn = document.getElementById('mkt-sync-btn');
+  var statusEl = document.getElementById('mkt-sync-status');
+
+  function setStatus(msg, cls) {
+    if (!statusEl) return;
+    statusEl.textContent = msg;
+    statusEl.className = 'mkt-sync-status ' + (cls || '');
+  }
+
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ スプレッドシートを読込中...'; }
+  setStatus('スプレッドシートに接続中...', 'info');
+
+  try {
+    // Step 1: gvizでシートデータ取得
+    var table = await fetchGviz(MKT_SHEET_GID);
+    var rows = tableToRows(table);
+
+    // Step 2: URLを抽出（列2優先 → 列1 → 列0の順）
+    var sheetItems = [];
+    rows.forEach(function(row) {
+      var url = null, title = '';
+      // どの列がURLかを動的に判定
+      for (var c = 0; c < row.length; c++) {
+        if (row[c] && String(row[c]).match(/^https?:\/\//i)) {
+          url = String(row[c]).trim();
+          // タイトルは前の列から取得
+          if (c > 0 && row[c-1] && !String(row[c-1]).match(/^https?:\/\//i) && !String(row[c-1]).match(/^\d+$/)) {
+            title = String(row[c-1]).trim();
+          }
+          break;
+        }
+      }
+      if (url) sheetItems.push({ url: url, title: title });
+    });
+
+    if (sheetItems.length === 0) {
+      setStatus('URLが見つかりませんでした。スプレッドシートにhttps://から始まるURLを入力してください。', 'error');
+      return;
+    }
+
+    // Step 3: 新規URLをDBに追加
+    var links = getLinksDb();
+    var added = 0;
+    sheetItems.forEach(function(item) {
+      if (!links.find(function(l) { return l.url === item.url; })) {
+        links.push({
+          id: Date.now() + Math.round(Math.random() * 9999),
+          url: item.url,
+          title: item.title || item.url,
+          addedAt: new Date().toISOString(),
+          status: 'pending',
+          analysis: null,
+          error: null,
+          progress: null,
+          source: 'spreadsheet'
+        });
+        added++;
+      }
+    });
+    saveLinksDb(links);
+    setStatus(sheetItems.length + '件のURL確認。' + (added > 0 ? added + '件を新規追加。' : '全件登録済み。'), 'success');
+    renderMktLinks();
+
+    // Step 4: APIキー確認
+    var apiKey = localStorage.getItem('lift_claude_api_key');
+    if (!apiKey) {
+      setStatus('URLを追加しました。分析には「APIキー設定」からClaude APIキーを登録してください。', 'info');
+      openApiKeyModal();
+      return;
+    }
+
+    // Step 5: 未分析のURLを順番に分析
+    var pending = getLinksDb().filter(function(l) { return l.status === 'pending'; });
+    if (pending.length === 0) {
+      setStatus('✅ 同期完了。新しい分析対象URLはありません。', 'success');
+      return;
+    }
+
+    for (var i = 0; i < pending.length; i++) {
+      setStatus('分析中 ' + (i+1) + '/' + pending.length + ': ' + (pending[i].title || pending[i].url).substring(0, 30) + '...', 'info');
+      if (btn) btn.textContent = '⏳ 分析中 ' + (i+1) + '/' + pending.length;
+      await analyzeMktLink(pending[i].id);
+    }
+
+    var done = getLinksDb().filter(function(l){ return l.status === 'done'; }).length;
+    var errCount = getLinksDb().filter(function(l){ return l.status === 'error'; }).length;
+    setStatus('✅ 完了！' + done + '件分析済み' + (errCount > 0 ? '、' + errCount + '件エラー' : '') + '。', 'success');
+    renderMktLinks();
+
+  } catch(e) {
+    console.error('syncMarketResearchFromSheet:', e);
+    setStatus('エラー: ' + e.message, 'error');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = '🔄 スプレッドシートから同期・分析'; }
+  }
 }
 
 
